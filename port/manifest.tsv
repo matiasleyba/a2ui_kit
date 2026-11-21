@@ -1,0 +1,122 @@
+n	component	source	group	size	phase	status	dart_file	confidence	todos	parity	signals	issues	definition
+1	Box	standard	Layout	M	1	built	lib/src/components/standard/layout/containers.dart	medium	0	test/parity/layout_parity_test.dart test/parity/layout_test.dart test/parity/standard_helpers_test.dart test/parity/theme_test.dart test/parity/tokens_test.dart			packages/shared/src/generative-ui/standard/layout.ts
+2	Column	standard	Layout	S	1	built	lib/src/components/standard/layout/containers.dart	medium	0	test/parity/accessibility_test.dart test/parity/bindings_parity_test.dart test/parity/checks_test.dart test/parity/data_media_parity_test.dart test/parity/dynamic_values_test.dart test/parity/functions_test.dart test/parity/inputs_parity_test.dart test/parity/inputs_test.dart test/parity/layout_parity_test.dart test/parity/layout_test.dart test/parity/media_test.dart test/parity/null_props_test.dart test/parity/standard_helpers_test.dart test/parity/surface_view_test.dart test/parity/text_test.dart test/parity/tokens_test.dart test/parity/validate_operation_test.dart			packages/shared/src/generative-ui/standard/layout.ts
+3	Row	standard	Layout	M	1	built	lib/src/components/standard/layout/containers.dart	medium	0	test/parity/inputs_test.dart test/parity/layout_parity_test.dart test/parity/layout_test.dart test/parity/standard_helpers_test.dart test/parity/tokens_test.dart			packages/shared/src/generative-ui/standard/layout.ts
+4	Grid	standard	Layout	M	1	built	lib/src/components/standard/layout/grid.dart	medium	0	test/parity/layout_parity_test.dart test/parity/layout_test.dart			packages/shared/src/generative-ui/standard/layout.ts
+5	GridItem	standard	Layout	S	1	built	lib/src/components/standard/layout/grid.dart	medium	0	test/parity/layout_parity_test.dart test/parity/layout_test.dart			packages/shared/src/generative-ui/standard/layout.ts
+6	Card	standard	Layout	M	1	built	lib/src/components/standard/layout/containers.dart	medium	0	test/parity/layout_parity_test.dart test/parity/layout_test.dart			packages/shared/src/generative-ui/standard/layout.ts
+7	Flow	standard	Layout	M	6	built	lib/src/components/standard/layout/flow.dart	medium	0	test/parity/layout_parity_test.dart test/parity/layout_test.dart			packages/shared/src/generative-ui/standard/layout.ts
+8	FlowItem	standard	Layout	S	6	built	lib/src/components/standard/layout/flow.dart	medium	0	test/parity/layout_test.dart			packages/shared/src/generative-ui/standard/layout.ts
+9	Carousel	standard	Layout	M	4	todo							packages/shared/src/generative-ui/standard/layout.ts
+10	CarouselItem	standard	Layout	S	4	todo							packages/shared/src/generative-ui/standard/layout.ts
+11	CarouselMediaItem	standard	Layout	M	4	todo							packages/shared/src/generative-ui/standard/layout.ts
+12	Spacer	standard	Layout	S	1	built	lib/src/components/standard/layout/spacer_divider.dart	high	0	test/parity/layout_parity_test.dart test/parity/layout_test.dart			packages/shared/src/generative-ui/standard/layout.ts
+13	Divider	standard	Layout	S	1	built	lib/src/components/standard/layout/spacer_divider.dart	high	0	test/parity/layout_parity_test.dart test/parity/layout_test.dart			packages/shared/src/generative-ui/standard/layout.ts
+14	Tabs	standard	Layout	M	4	todo							packages/shared/src/generative-ui/standard/layout.ts
+15	Title	standard	Text	S	1	built	lib/src/components/standard/text/text_components.dart	medium	0	test/parity/dynamic_values_test.dart test/parity/surface_view_test.dart test/parity/text_test.dart			packages/shared/src/generative-ui/standard/text.ts
+16	Text	standard	Text	M	1	built	lib/src/components/standard/text/text_components.dart	medium	0	test/parity/calc_test.dart test/parity/dynamic_values_test.dart test/parity/functions_test.dart test/parity/inputs_parity_test.dart test/parity/inputs_test.dart test/parity/layout_parity_test.dart test/parity/null_props_test.dart test/parity/standard_helpers_test.dart test/parity/surface_view_test.dart test/parity/text_test.dart test/parity/theme_test.dart test/parity/tokens_test.dart test/parity/validate_operation_test.dart			packages/shared/src/generative-ui/standard/text.ts
+17	Caption	standard	Text	S	1	built	lib/src/components/standard/text/text_components.dart	medium	0	test/parity/layout_parity_test.dart test/parity/text_test.dart			packages/shared/src/generative-ui/standard/text.ts
+18	Label	standard	Text	S	1	built	lib/src/components/standard/text/text_components.dart	medium	0	test/parity/layout_parity_test.dart test/parity/layout_test.dart test/parity/media_test.dart test/parity/text_test.dart			packages/shared/src/generative-ui/standard/text.ts
+19	Bold	standard	Text	S	6	built	lib/src/components/standard/text/bold.dart	high	0	test/parity/text_test.dart			packages/shared/src/generative-ui/standard/text.ts
+20	Italic	standard	Text	S	6	built	lib/src/components/standard/text/italic.dart	high	0	test/parity/layout_parity_test.dart			packages/shared/src/generative-ui/standard/text.ts
+21	Underline	standard	Text	S	6	built	lib/src/components/standard/text/underline.dart	high	0	test/parity/layout_parity_test.dart			packages/shared/src/generative-ui/standard/text.ts
+22	Strikethrough	standard	Text	S	6	built	lib/src/components/standard/text/strikethrough.dart	high	0	test/parity/layout_parity_test.dart			packages/shared/src/generative-ui/standard/text.ts
+23	Badge	standard	Text	S	1	built	lib/src/components/standard/text/text_components.dart	medium	0	test/parity/inputs_parity_test.dart test/parity/layout_parity_test.dart test/parity/text_test.dart			packages/shared/src/generative-ui/standard/text.ts
+24	Blockquote	standard	Text	S	6	built	lib/src/components/standard/text/blockquote.dart	high	0	test/parity/layout_parity_test.dart			packages/shared/src/generative-ui/standard/text.ts
+25	Code	standard	Text	S	6	built	lib/src/components/standard/text/code.dart	high	0	test/parity/layout_parity_test.dart test/parity/text_test.dart			packages/shared/src/generative-ui/standard/text.ts
+26	Markdown	standard	Text	L	1	built	lib/src/components/standard/text/markdown.dart	medium	0	test/parity/layout_parity_test.dart test/parity/text_test.dart test/parity/tokens_test.dart			packages/shared/src/generative-ui/standard/text.ts
+27	Math	standard	Text	M	6	built	lib/src/components/standard/text/math.dart	medium	0	test/parity/text_test.dart			packages/shared/src/generative-ui/standard/text.ts
+28	ShimmerText	standard	Text	S	6	todo							packages/shared/src/generative-ui/standard/text.ts
+29	Link	standard	Text	S	1	built	lib/src/components/standard/text/link.dart	high	0	test/parity/layout_parity_test.dart test/parity/text_test.dart			packages/shared/src/generative-ui/standard/text.ts
+30	Tooltip	standard	Text	M	4	todo							packages/shared/src/generative-ui/standard/text.ts
+31	Button	standard	Inputs	M	1	built	lib/src/components/standard/inputs/button.dart	high	0	test/parity/accessibility_test.dart test/parity/checks_test.dart test/parity/composites_test.dart test/parity/dynamic_values_test.dart test/parity/functions_test.dart test/parity/inputs_parity_test.dart test/parity/inputs_test.dart test/parity/null_props_test.dart test/parity/resolve_test.dart test/parity/surface_view_test.dart test/parity/validate_operation_test.dart			packages/shared/src/generative-ui/standard/inputs.ts
+32	Pressable	standard	Inputs	M	4	todo					test/parity/inputs_parity_test.dart		packages/shared/src/generative-ui/standard/inputs.ts
+33	Form	standard	Inputs	M	1	built	lib/src/components/standard/inputs/form.dart	medium	0	test/parity/inputs_parity_test.dart test/parity/inputs_test.dart			packages/shared/src/generative-ui/standard/inputs.ts
+34	TextField	standard	Inputs	M	1	built	lib/src/components/standard/inputs/text_field.dart	medium	0	test/parity/bindings_parity_test.dart test/parity/checks_test.dart test/parity/dynamic_values_test.dart test/parity/inputs_parity_test.dart test/parity/inputs_test.dart test/parity/surface_view_test.dart			packages/shared/src/generative-ui/standard/inputs.ts
+35	TextArea	standard	Inputs	M	4	todo					test/parity/inputs_parity_test.dart		packages/shared/src/generative-ui/standard/inputs.ts
+36	Select	standard	Inputs	M	1	built	lib/src/components/standard/inputs/select.dart	medium	0	test/parity/bindings_parity_test.dart test/parity/dynamic_values_test.dart test/parity/inputs_parity_test.dart test/parity/inputs_test.dart test/parity/null_props_test.dart test/parity/validate_operation_test.dart			packages/shared/src/generative-ui/standard/inputs.ts
+37	CheckBox	standard	Inputs	S	1	built	lib/src/components/standard/inputs/choices.dart	high	0	test/parity/checks_test.dart test/parity/functions_test.dart test/parity/inputs_parity_test.dart test/parity/inputs_test.dart			packages/shared/src/generative-ui/standard/inputs.ts
+38	Radio	standard	Inputs	S	4	todo							packages/shared/src/generative-ui/standard/inputs.ts
+39	RadioGroup	standard	Inputs	M	1	built	lib/src/components/standard/inputs/choices.dart	high	0	test/parity/bindings_parity_test.dart test/parity/inputs_parity_test.dart test/parity/inputs_test.dart			packages/shared/src/generative-ui/standard/inputs.ts
+40	Slider	standard	Inputs	M	4	todo					test/parity/checks_test.dart test/parity/inputs_parity_test.dart		packages/shared/src/generative-ui/standard/inputs.ts
+41	SegmentedControl	standard	Inputs	M	4	todo					test/parity/bindings_parity_test.dart test/parity/inputs_parity_test.dart test/parity/inputs_test.dart		packages/shared/src/generative-ui/standard/inputs.ts
+42	ChoicePicker	standard	Inputs	M	4	todo							packages/shared/src/generative-ui/standard/inputs.ts
+43	DateTimeInput	standard	Inputs	L	4	todo					test/parity/bindings_parity_test.dart test/parity/inputs_parity_test.dart		packages/shared/src/generative-ui/standard/inputs.ts
+44	PulseIndicator	standard	Feedback	S	6	todo							packages/shared/src/generative-ui/standard/feedback.ts
+45	FlashcardFlip	standard	Feedback	S	6	todo							packages/shared/src/generative-ui/standard/feedback.ts
+46	Popover	standard	Feedback	M	4	todo							packages/shared/src/generative-ui/standard/feedback.ts
+47	PopoverTrigger	standard	Feedback	S	4	todo							packages/shared/src/generative-ui/standard/feedback.ts
+48	PopoverContent	standard	Feedback	M	4	todo							packages/shared/src/generative-ui/standard/feedback.ts
+49	Modal	standard	Feedback	L	4	todo							packages/shared/src/generative-ui/standard/feedback.ts
+50	Table	standard	Data	L	6	built	lib/src/components/standard/data/table.dart	medium	0	test/parity/bindings_parity_test.dart test/parity/data_media_parity_test.dart test/parity/data_test.dart			packages/shared/src/generative-ui/standard/data.ts
+51	TableSection	standard	Data	S	6	built	lib/src/components/standard/data/table.dart	medium	0	test/parity/data_test.dart			packages/shared/src/generative-ui/standard/data.ts
+52	TableRow	standard	Data	S	6	built	lib/src/components/standard/data/table.dart	medium	0	test/parity/data_media_parity_test.dart test/parity/data_test.dart			packages/shared/src/generative-ui/standard/data.ts
+53	TableCell	standard	Data	S	6	built	lib/src/components/standard/data/table.dart	medium	0	test/parity/data_media_parity_test.dart test/parity/data_test.dart			packages/shared/src/generative-ui/standard/data.ts
+54	List	standard	Data	M	1	built	lib/src/components/standard/data/list.dart	medium	0	test/parity/bindings_parity_test.dart test/parity/data_media_parity_test.dart test/parity/data_test.dart			packages/shared/src/generative-ui/standard/data.ts
+55	ListItem	standard	Data	M	1	built	lib/src/components/standard/data/list.dart	medium	0	test/parity/data_media_parity_test.dart test/parity/data_test.dart			packages/shared/src/generative-ui/standard/data.ts
+56	Chart	standard	Data	L	2	built	lib/src/components/standard/data/chart.dart	medium	0	test/parity/bindings_parity_test.dart test/parity/chart_scatter_test.dart test/parity/chart_test.dart test/parity/data_media_parity_test.dart test/parity/data_test.dart test/parity/dynamic_values_test.dart			packages/shared/src/generative-ui/standard/data.ts
+57	Map	standard	Data	L	3	todo					test/parity/data_media_parity_test.dart test/parity/standard_ui_test.dart		packages/shared/src/generative-ui/standard/data.ts
+58	Image	standard	Media	M	1	built	lib/src/components/standard/media/image.dart	medium	1	test/parity/composites_test.dart test/parity/data_media_parity_test.dart test/parity/media_test.dart			packages/shared/src/generative-ui/standard/media.ts
+59	Icon	standard	Media	M	1	built	lib/src/components/standard/media/icon.dart	high	0	test/parity/data_media_parity_test.dart test/parity/media_test.dart			packages/shared/src/generative-ui/standard/media.ts
+60	Favicon	standard	Media	S	3	todo					test/parity/data_media_parity_test.dart		packages/shared/src/generative-ui/standard/media.ts
+61	Svg	standard	Media	M	3	built	lib/src/components/standard/media/svg.dart	medium	0	test/parity/data_media_parity_test.dart test/parity/media_test.dart	test/parity/media_test.dart		packages/shared/src/generative-ui/standard/media.ts
+62	Video	standard	Media	L	3	todo					test/parity/data_media_parity_test.dart		packages/shared/src/generative-ui/standard/media.ts
+63	AudioPlayer	standard	Media	M	3	todo					test/parity/data_media_parity_test.dart		packages/shared/src/generative-ui/standard/media.ts
+64	HtmlView	standard	Media	L	3	todo					test/parity/data_media_parity_test.dart		packages/shared/src/generative-ui/standard/media.ts
+65	LinkCard	standard	Composites	S	5	todo							packages/shared/src/generative-ui/standard/composites.ts
+66	Citation	standard	Composites	M	4	todo							packages/shared/src/generative-ui/standard/composites.ts
+67	FollowUp	standard	Composites	S	4	todo							packages/shared/src/generative-ui/standard/composites.ts
+68	EntityCard	standard	Composites	M	5	todo					test/parity/standard_ui_test.dart		packages/shared/src/generative-ui/standard/composites.ts
+69	ImageGrid	standard	Composites	M	3	todo							packages/shared/src/generative-ui/standard/composites.ts
+70	Section	playground	Layout	S	1	built	lib/src/components/playground/layout/section.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/layout.ts
+71	Accordion	playground	Layout	S	4	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/layout.ts
+72	Heading	playground	Content	M	1	built	lib/src/components/playground/content/heading.dart	medium	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/content.ts
+73	CodeBlock	playground	Content	M	6	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/content.ts
+74	Quote	playground	Content	S	6	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/content.ts
+75	ImageGallery	playground	Content	S	3	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/content.ts
+76	VideoEmbed	playground	Content	M	3	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/content.ts
+77	Kbd	playground	Content	S	6	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/content.ts
+78	Stat	playground	Data display	M	1	built	lib/src/components/playground/data_display/stat.dart	medium	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+79	StatGroup	playground	Data display	M	1	built	lib/src/components/playground/data_display/stat.dart	medium	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+80	Avatar	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+81	AvatarGroup	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+82	DataTable	playground	Data display	L	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+83	KeyValueList	playground	Data display	M	1	built	lib/src/components/playground/data_display/key_value_list.dart	medium	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+84	Timeline	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+85	Progress	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+86	RadialProgress	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+87	Rating	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+88	TagList	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+89	Agenda	playground	Data display	M	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+90	ComparisonTable	playground	Data display	M	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+91	LineChart	playground	Charts	L	2	built	lib/src/components/playground/charts/line_chart.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+92	AreaChart	playground	Charts	L	2	built	lib/src/components/playground/charts/area_chart.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+93	BarChart	playground	Charts	L	2	built	lib/src/components/playground/charts/bar_chart.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+94	PieChart	playground	Charts	M	2	built	lib/src/components/playground/charts/pie_chart.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+95	ScatterChart	playground	Charts	M	2	built	lib/src/components/playground/charts/scatter_chart.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+96	Heatmap	playground	Charts	M	2	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+97	Sparkline	playground	Charts	M	2	built	lib/src/components/playground/charts/sparkline.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+98	RadarChart	playground	Charts	M	2	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+99	CandlestickChart	playground	Charts	M	2	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+100	Treemap	playground	Charts	L	2	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+101	SankeyChart	playground	Charts	L	2	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+102	Gauge	playground	Charts	S	2	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
+103	MapView	playground	Maps	L	3	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/maps.ts
+104	RouteMap	playground	Maps	L	3	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/maps.ts
+105	LocationCard	playground	Maps	M	3	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/maps.ts
+106	PlaceList	playground	Maps	L	3	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/maps.ts
+107	Combobox	playground	Inputs	M	4	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/inputs.ts
+108	Switch	playground	Inputs	S	4	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/inputs.ts
+109	DatePicker	playground	Inputs	M	4	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/inputs.ts
+110	ButtonGroup	playground	Inputs	S	4	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/inputs.ts
+111	ChipSelect	playground	Inputs	S	4	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/inputs.ts
+112	Alert	playground	Feedback	S	1	built	lib/src/components/playground/feedback/alert_callout.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/feedback.ts
+113	Callout	playground	Feedback	S	1	built	lib/src/components/playground/feedback/alert_callout.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/feedback.ts
+114	Skeleton	playground	Feedback	S	6	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/feedback.ts
+115	EmptyState	playground	Feedback	S	6	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/feedback.ts
+116	WeatherCard	playground	Domain	M	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/domain.ts
+117	ProfileCard	playground	Domain	M	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/domain.ts
+118	ReceiptCard	playground	Domain	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/domain.ts
+119	EventCard	playground	Domain	M	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/domain.ts
+120	StockTicker	playground	Domain	M	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/domain.ts
+121	RecipeCard	playground	Domain	M	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/domain.ts

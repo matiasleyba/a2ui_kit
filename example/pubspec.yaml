@@ -1,0 +1,27 @@
+name: a2ui_kit_example
+description: A gallery of a2ui_kit surfaces.
+publish_to: none
+version: 0.1.0
+
+environment:
+  sdk: ^3.10.0
+  flutter: ">=3.38.0"
+
+dependencies:
+  a2ui_core: ^0.8.0
+  a2ui_flutter: ^0.4.0
+  a2ui_kit:
+    path: ../
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^11.0.0
+
+flutter:
+  uses-material-design: true
+  # CopilotKit's recorded playground runs (MIT; see the package's NOTICE.md).
+  assets:
+    - assets/replays/

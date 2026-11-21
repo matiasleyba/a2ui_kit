@@ -1,0 +1,60 @@
+name: a2ui_kit
+description: >-
+  Generative UI for Flutter: 53 ready-made A2UI components (charts, tables,
+  LaTeX maths, Markdown, forms, SVG) on a2ui_flutter, matching CopilotKit's
+  A2UI Playground catalog.
+version: 0.1.0
+repository: https://github.com/vritravaibhav/a2ui_kit
+issue_tracker: https://github.com/vritravaibhav/a2ui_kit/issues
+topics:
+  - a2ui
+  - genui
+  - generative-ui
+  - ai
+  - widget
+
+screenshots:
+  - description: A bar chart, maths and a table with spans, drawn from A2UI.
+    path: doc/screenshots/overview.png
+  - description: A donut chart with its centre total and legend.
+    path: doc/screenshots/chart-donut.png
+  - description: Inline and display LaTeX maths in a sentence.
+    path: doc/screenshots/math.png
+  - description: A table with a row-spanning header, a badge and a full-width row.
+    path: doc/screenshots/table.png
+  - description: A form with a select, text area, radio group, checkbox and email check.
+    path: doc/screenshots/form.png
+  - description: Markdown with a numbered list, task list, quote and table.
+    path: doc/screenshots/markdown.png
+  - description: A line chart with two series.
+    path: doc/screenshots/chart-line.png
+  - description: An SVG free-body diagram.
+    path: doc/screenshots/svg.png
+  - description: A Flow of cards, the last spanning both columns.
+    path: doc/screenshots/flow.png
+  - description: A group of stats with their changes.
+    path: doc/screenshots/stats.png
+
+environment:
+  sdk: ^3.10.0
+  flutter: ">=3.38.0"
+
+dependencies:
+  a2ui_core: ^0.8.0
+  a2ui_flutter: ^0.4.0
+  flutter:
+    sdk: flutter
+  flutter_markdown_plus: ^1.0.12
+  flutter_math_fork: ^0.7.4
+  intl: ^0.20.2
+  json_schema_builder: ^0.1.7
+  markdown: ^7.3.1
+  path_parsing: ^1.1.0
+  url_launcher: ^6.3.3
+
+dev_dependencies:
+  alchemist: ^0.15.0
+  flutter_test:
+    sdk: flutter
+  url_launcher_platform_interface: ^2.3.2
+  very_good_analysis: ^11.0.0

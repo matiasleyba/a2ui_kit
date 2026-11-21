@@ -1,0 +1,15 @@
+# Not in the published archive: the plan and the port's records, the
+# TypeScript samples, reference screenshots, the golden images, the picture
+# galleries and fetched third-party sources. The repository has them all.
+PORT_PLAN.md
+port/
+gallery/
+test/fixtures/copilotkit/samples_ts/
+test/reference/
+test/goldens/
+third_party_src/
+.dart_tool/
+build/
+doc/api/
+pubspec.lock
+test/**/failures/

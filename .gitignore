@@ -1,0 +1,19 @@
+# Dart and Flutter tool output
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+doc/api/
+
+# A package does not commit its lock file
+pubspec.lock
+
+# Golden test failures
+test/**/failures/
+
+# Third-party sources fetched for the generator and the port's citations
+# (port/RULEBOOK.md section 0 item 4): set $A2UI_THIRDPARTY_SRC, or put them here.
+third_party_src/
+
+# Some parent repositories ignore media/ folders; this one is code.
+!lib/src/components/standard/media/
