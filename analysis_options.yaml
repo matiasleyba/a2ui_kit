@@ -6,3 +6,9 @@ analyzer:
     - example/**
     - build/**
     - third_party_src/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**

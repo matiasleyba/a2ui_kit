@@ -1,458 +1,240 @@
-/// The sample surfaces of the gallery, by name.
-final Map<String, List<Map<String, Object?>>> gallerySamples = {
-  'layout': [
+// The playground's component previews (a2ui.open.bot and samples/*.ts),
+// for the components this version draws. A part that only renders inside
+// its parent (GridItem, TableRow, ListItem) uses the preview its page shows.
+
+/// One gallery entry: the surface and, when props bind into it, the data.
+class GallerySample {
+  /// A surface of [components], optionally seeded with [data].
+  GallerySample(this.components, {this.data});
+
+  /// The component messages, root id `root`.
+  final List<Map<String, Object?>> components;
+
+  /// The data model, for `{"@path": "/..."}` props.
+  final Map<String, Object?>? data;
+}
+
+/// The incidents table shared by TableSection, TableRow and TableCell.
+final List<Map<String, Object?>> _incidents = [
+  {
+    'id': 'root',
+    'component': 'Table',
+    'caption': 'Open incidents',
+    'children': ['head', 'body'],
+  },
+  {
+    'id': 'head',
+    'component': 'TableSection',
+    'header': true,
+    'children': ['head_row'],
+  },
+  {
+    'id': 'head_row',
+    'component': 'TableRow',
+    'children': ['h1', 'h2'],
+  },
+  {'id': 'h1', 'component': 'TableCell', 'header': true, 'text': 'Service'},
+  {'id': 'h2', 'component': 'TableCell', 'header': true, 'text': 'Status'},
+  {
+    'id': 'body',
+    'component': 'TableSection',
+    'children': ['r1', 'r2'],
+  },
+  {
+    'id': 'r1',
+    'component': 'TableRow',
+    'children': ['r1a', 'r1b'],
+  },
+  {'id': 'r1a', 'component': 'TableCell', 'text': 'Search'},
+  {
+    'id': 'r1b',
+    'component': 'TableCell',
+    'children': ['r1b_badge'],
+  },
+  {
+    'id': 'r1b_badge',
+    'component': 'Badge',
+    'label': 'Degraded',
+    'color': 'warning',
+  },
+  {
+    'id': 'r2',
+    'component': 'TableRow',
+    'children': ['r2a', 'r2b'],
+  },
+  {'id': 'r2a', 'component': 'TableCell', 'text': 'Billing'},
+  {
+    'id': 'r2b',
+    'component': 'TableCell',
+    'children': ['r2b_badge'],
+  },
+  {
+    'id': 'r2b_badge',
+    'component': 'Badge',
+    'label': 'Resolved',
+    'color': 'success',
+  },
+];
+
+/// The sample surfaces of the gallery, in the official category order.
+final Map<String, GallerySample> gallerySamples = {
+  // Layout.
+  'Section': GallerySample([
     {
       'id': 'root',
-      'component': 'Column',
-      'children': ['kv1', 'kv2', 'div', 'box', 'row'],
+      'component': 'Section',
+      'eyebrow': 'Overview',
+      'title': 'This week',
+      'description': 'Activity across your workspace.',
+      'children': ['g'],
     },
     {
-      'id': 'kv1',
-      'component': 'Row',
-      'justify': 'spaceBetween',
-      'children': ['k1', 'v1'],
-    },
-    {'id': 'k1', 'component': 'Caption', 'text': 'Subtotal'},
-    {
-      'id': 'v1',
-      'component': 'Text',
-      'text': r'$1,240.00',
-      'fontWeight': 'medium',
-      'tabularNums': true,
-    },
-    {
-      'id': 'kv2',
-      'component': 'Row',
-      'justify': 'spaceBetween',
-      'children': ['k2', 'v2'],
-    },
-    {'id': 'k2', 'component': 'Caption', 'text': 'Shipping'},
-    {'id': 'v2', 'component': 'Text', 'text': 'Free', 'color': 'success'},
-    {'id': 'div', 'component': 'Divider'},
-    {
-      'id': 'box',
-      'component': 'Box',
-      'border': true,
-      'radius': 'lg',
-      'padding': 3,
-      'gap': 2,
-      'children': ['bt', 'bc'],
-    },
-    {'id': 'bt', 'component': 'Label', 'text': 'Delivery window'},
-    {
-      'id': 'bc',
-      'component': 'Text',
-      'text': 'Tuesday, 9:00 to 12:00. We text you an hour before.',
-    },
-    {
-      'id': 'row',
-      'component': 'Row',
-      'children': ['left', 'sp', 'right'],
-    },
-    {'id': 'left', 'component': 'Badge', 'label': 'Express'},
-    {'id': 'sp', 'component': 'Spacer'},
-    {
-      'id': 'right',
-      'component': 'Caption',
-      'text': 'Order #4821',
-      'size': 'sm',
-    },
-  ],
-  'card': [
-    {
-      'id': 'root',
-      'component': 'Card',
-      'children': ['head', 'body', 'panel', 'div', 'tags'],
-    },
-    {
-      'id': 'head',
-      'component': 'Column',
-      'gap': 1,
-      'children': ['title', 'sub'],
-    },
-    {'id': 'title', 'component': 'Title', 'text': 'Team plan', 'size': 'lg'},
-    {
-      'id': 'sub',
-      'component': 'Caption',
-      'text': 'Billed yearly, **cancel** any time',
-    },
-    {
-      'id': 'body',
-      'component': 'Text',
-      'text': 'Up to 25 seats, shared workspaces and *priority* support.',
-    },
-    {
-      'id': 'panel',
-      'component': 'Card',
-      'background': 'surface-secondary',
-      'children': ['pk', 'pv'],
-    },
-    {'id': 'pk', 'component': 'Label', 'text': 'Price'},
-    {
-      'id': 'pv',
-      'component': 'Text',
-      'text': r'$29 per seat',
-      'size': 'lg',
-      'strong': true,
-    },
-    {'id': 'div', 'component': 'Divider'},
-    {
-      'id': 'tags',
+      'id': 'g',
       'component': 'Row',
       'wrap': 'wrap',
-      'children': ['b1', 'b2', 'b3'],
+      'children': ['a', 'b'],
     },
-    {
-      'id': 'b1',
-      'component': 'Badge',
-      'label': 'Popular',
-      'color': 'discovery',
-    },
-    {'id': 'b2', 'component': 'Badge', 'label': 'SSO', 'variant': 'outline'},
-    {
-      'id': 'b3',
-      'component': 'Badge',
-      'label': 'Save 20%',
-      'color': 'success',
-      'variant': 'solid',
-    },
-  ],
-  'grid': [
+    {'id': 'a', 'component': 'Stat', 'label': 'Commits', 'value': '342'},
+    {'id': 'b', 'component': 'Stat', 'label': 'PRs merged', 'value': '57'},
+  ]),
+  // Content.
+  'Heading': GallerySample([
     {
       'id': 'root',
-      'component': 'Grid',
-      'columns': 2,
-      'gap': 3,
-      'children': ['c1', 'c2', 'c3', 'wide'],
-    },
-    for (final (id, label, value) in [
-      ('c1', 'Revenue', r'$18.4M'),
-      ('c2', 'Customers', '2,940'),
-      ('c3', 'Churn', '1.8%'),
-    ]) ...[
-      {
-        'id': id,
-        'component': 'Card',
-        'size': 'sm',
-        'children': ['${id}_l', '${id}_v'],
-      },
-      {'id': '${id}_l', 'component': 'Caption', 'text': label},
-      {'id': '${id}_v', 'component': 'Title', 'text': value, 'size': 'xl'},
-    ],
-    {
-      'id': 'wide',
-      'component': 'GridItem',
-      'span': 2,
-      'children': ['wt'],
-    },
-    {
-      'id': 'wt',
-      'component': 'Text',
-      'text': 'A GridItem that spans both columns fills the row.',
-      'highlight': 'green',
-    },
-  ],
-  'text': [
-    {
-      'id': 'root',
-      'component': 'Column',
-      'gap': 2,
-      'children': ['t1', 't2', 't3', 't4', 'x1', 'x2', 'x3', 'x4', 'l1'],
-    },
-    {'id': 't1', 'component': 'Title', 'text': 'Title 2xl', 'size': '2xl'},
-    {'id': 't2', 'component': 'Title', 'text': 'Title lg', 'size': 'lg'},
-    {'id': 't3', 'component': 'Title', 'text': 'Title sm', 'size': 'sm'},
-    {
-      'id': 't4',
-      'component': 'Title',
-      'text': 'A title too long to fit on one line is cut',
-      'truncate': true,
-    },
-    {
-      'id': 'x1',
-      'component': 'Text',
-      'text': 'Body with **bold**, *italic*, ~~old~~, ++new++ and `code`.',
-    },
-    {'id': 'x2', 'component': 'Text', 'text': 'Small text', 'size': 'sm'},
-    {
-      'id': 'x3',
-      'component': 'Text',
-      'text':
-          'Two lines at most: this sentence goes on long enough to need '
-          'a third line on a narrow surface.',
-      'maxLines': 2,
-      'color': 'secondary',
-    },
-    {
-      'id': 'x4',
-      'component': 'Text',
-      'text': 'Plan',
-      'children': ['xb'],
-    },
-    {'id': 'xb', 'component': 'Badge', 'label': 'Pro', 'size': 'sm'},
-    {'id': 'l1', 'component': 'Label', 'text': 'Email address'},
-  ],
-  'badges': [
-    {
-      'id': 'root',
-      'component': 'Column',
-      'children': ['soft', 'solid', 'outline'],
-    },
-    for (final variant in ['soft', 'solid', 'outline']) ...[
-      {
-        'id': variant,
-        'component': 'Row',
-        'wrap': 'wrap',
-        'children': [
-          for (final color in [
-            'secondary',
-            'success',
-            'danger',
-            'warning',
-            'info',
-            'discovery',
-          ])
-            '${variant}_$color',
-        ],
-      },
-      for (final color in [
-        'secondary',
-        'success',
-        'danger',
-        'warning',
-        'info',
-        'discovery',
-      ])
-        {
-          'id': '${variant}_$color',
-          'component': 'Badge',
-          'label': color,
-          'color': color,
-          'variant': variant,
-        },
-    ],
-  ],
-  // Phase 1b.
-  'form': [
-    {
-      'id': 'root',
-      'component': 'Card',
-      'children': ['form'],
-    },
-    {
-      'id': 'form',
-      'component': 'Form',
-      'label': 'Book a demo',
-      'children': ['name', 'plan', 'size', 'terms', 'actions'],
-    },
-    {
-      'id': 'name',
-      'component': 'TextField',
-      'label': 'Work email',
-      'placeholder': 'you@company.com',
-      'value': 'ada@',
-      'checks': [
-        {
-          'condition': {
-            '@call': 'email',
-            'args': {'value': 'ada@'},
-          },
-        },
-      ],
-    },
-    {
-      'id': 'plan',
-      'component': 'Select',
-      'label': 'Plan',
-      'icon': 'credit-card',
-      'options': ['Free', 'Team', 'Enterprise'],
-      'value': 'Team',
-    },
-    {
-      'id': 'size',
-      'component': 'RadioGroup',
-      'label': 'Team size',
-      'variant': 'pills',
-      'options': ['1-10', '11-50', '51+'],
-      'value': '11-50',
-    },
-    {
-      'id': 'terms',
-      'component': 'CheckBox',
-      'label': 'Send me the weekly report',
-      'value': true,
-    },
-    {
-      'id': 'actions',
-      'component': 'Row',
-      'children': ['cancel', 'send'],
-    },
-    {'id': 'cancel', 'component': 'Button', 'label': 'Cancel'},
-    {
-      'id': 'send',
-      'component': 'Button',
-      'label': 'Book',
-      'icon': 'send',
-      'variant': 'primary',
-      'submit': true,
-    },
-  ],
-  'buttons': [
-    {
-      'id': 'root',
-      'component': 'Column',
-      'children': ['r1', 'r2', 'r3'],
-    },
-    {
-      'id': 'r1',
-      'component': 'Row',
-      'wrap': 'wrap',
-      'children': ['primary', 'default', 'soft', 'borderless'],
-    },
-    {
-      'id': 'primary',
-      'component': 'Button',
-      'label': 'Primary',
-      'variant': 'primary',
-    },
-    {'id': 'default', 'component': 'Button', 'label': 'Default'},
-    {'id': 'soft', 'component': 'Button', 'label': 'Soft', 'variant': 'soft'},
-    {
-      'id': 'borderless',
-      'component': 'Button',
-      'label': 'Borderless',
-      'variant': 'borderless',
-    },
-    {
-      'id': 'r2',
-      'component': 'Row',
-      'wrap': 'wrap',
-      'children': ['danger', 'secondary', 'small', 'square'],
-    },
-    {
-      'id': 'danger',
-      'component': 'Button',
-      'label': 'Delete',
-      'color': 'danger',
-      'icon': 'trash-2',
-    },
-    {
-      'id': 'secondary',
-      'component': 'Button',
-      'label': 'Secondary',
-      'variant': 'primary',
-      'color': 'secondary',
-    },
-    {
-      'id': 'small',
-      'component': 'Button',
-      'label': 'Small',
-      'size': 'sm',
-      'pill': false,
-    },
-    {'id': 'square', 'component': 'Button', 'icon': 'plus', 'uniform': true},
-    {
-      'id': 'r3',
-      'component': 'Button',
-      'label': 'Block and disabled',
-      'block': true,
-      'disabled': true,
-    },
-  ],
-  'lists': [
-    {
-      'id': 'root',
-      'component': 'Column',
-      'children': ['specs', 'steps', 'icons', 'link'],
-    },
-    {
-      'id': 'specs',
-      'component': 'List',
-      'marker': 'none',
-      'items': [
-        {'label': 'Price', 'value': r'$1,599'},
-        {'label': 'Battery', 'value': '18 h', 'description': 'Mixed use'},
-      ],
-    },
-    {
-      'id': 'steps',
-      'component': 'List',
-      'marker': 'number',
-      'connector': 'solid',
-      'items': ['Sign up', 'Invite your team', 'Ship'],
-    },
-    {
-      'id': 'icons',
-      'component': 'Row',
-      'children': ['i1', 'i2', 'i3', 'i4'],
-    },
-    {'id': 'i1', 'component': 'Icon', 'name': 'check', 'color': 'success'},
-    {'id': 'i2', 'component': 'Icon', 'name': 'warning', 'color': 'warning'},
-    {'id': 'i3', 'component': 'Icon', 'name': 'heart', 'size': 'xl'},
-    {
-      'id': 'i4',
-      'component': 'Icon',
-      'name': {'svgPath': 'M12 2 22 22H2z'},
-      'color': 'info',
-    },
-    {
-      'id': 'link',
-      'component': 'Link',
-      'text': 'Read the docs',
-      'href': 'https://docs.copilotkit.ai',
-    },
-  ],
-  'markdown': [
-    {
-      'id': 'root',
-      'component': 'Markdown',
-      'text':
-          '## Release notes\n\nThe **new** planner and a `fix` for '
-          'search.\n\n- Faster sync\n- [x] Dark mode\n\n> Ship it.\n\n'
-          '| Plan | Seats |\n|---|---|\n| Team | 10 |',
-    },
-  ],
-  'kpis': [
-    {
-      'id': 'root',
-      'component': 'Column',
-      'children': ['head', 'row', 'group'],
-    },
-    {
-      'id': 'head',
       'component': 'Heading',
-      'eyebrow': 'Sales dashboard',
-      'text': 'Q3 sales by region',
-      'subtitle': 'Revenue grew 11% on EMEA renewals',
+      'eyebrow': 'Trip plan',
+      'text': 'Three days in Tokyo',
+      'subtitle':
+          'Food markets, quiet temples and one very late night in Shinjuku.',
     },
+  ]),
+  // Data display.
+  'Agenda': GallerySample([
     {
-      'id': 'row',
-      'component': 'Row',
-      'children': ['k1', 'k2'],
+      'id': 'root',
+      'component': 'Agenda',
+      'title': 'This week',
+      'days': [
+        {
+          'date': '2026-10-15',
+          'label': 'Today',
+          'events': [
+            {
+              'time': '9:30 AM',
+              'title': 'Design review: billing page',
+              'location': 'Room 4B',
+              'tone': 'accent',
+            },
+            {
+              'time': '1:00 PM',
+              'title': 'Lunch with Priya',
+              'location': 'Tartine, Mission St',
+              'tone': 'positive',
+            },
+            {
+              'time': '4:30 PM',
+              'title': 'Incident retro',
+              'location': 'Zoom',
+              'tone': 'warning',
+            },
+          ],
+        },
+        {
+          'date': '2026-10-16',
+          'events': [
+            {
+              'time': '10:00 AM',
+              'title': 'Q4 planning',
+              'location': 'Main conference room',
+              'tone': 'info',
+            },
+            {'time': '3:00 PM', 'title': '1:1 with Leo', 'tone': 'accent'},
+          ],
+        },
+        {'date': '2026-10-17', 'events': <Object?>[]},
+      ],
     },
+  ]),
+  'Timeline': GallerySample([
     {
-      'id': 'k1',
-      'component': 'Stat',
-      'label': 'Revenue',
-      'value': r'$18.4M',
-      'delta': '+11.2%',
-      'icon': 'trending-up',
-      'tone': 'positive',
-      'caption': 'vs. Q2',
+      'id': 'root',
+      'component': 'Timeline',
+      'items': [
+        {
+          'title': 'Order confirmed',
+          'time': 'Oct 14, 9:42 AM',
+          'status': 'done',
+        },
+        {
+          'title': 'Packed at Reno warehouse',
+          'time': 'Oct 14, 4:10 PM',
+          'description': '3 items in one box, 2.4 kg.',
+          'status': 'done',
+        },
+        {
+          'title': 'In transit',
+          'time': 'Oct 15, 7:05 AM',
+          'description': 'Left the Sacramento hub, next stop Oakland.',
+          'status': 'current',
+          'icon': 'truck',
+        },
+        {
+          'title': 'Out for delivery',
+          'time': 'Est. Oct 16',
+          'status': 'upcoming',
+        },
+        {'title': 'Delivered', 'status': 'upcoming'},
+      ],
     },
+  ]),
+  'ComparisonTable': GallerySample([
     {
-      'id': 'k2',
-      'component': 'Stat',
-      'label': 'Churn',
-      'value': '2.1%',
-      'delta': '-0.4%',
+      'id': 'root',
+      'component': 'ComparisonTable',
+      'title': 'Pick a plan',
+      'options': ['Starter', 'Pro', 'Enterprise'],
+      'highlight': 1,
+      'rows': [
+        {
+          'feature': 'Price per seat',
+          'values': <Object?>[r'$0', r'$24/mo', 'Custom'],
+        },
+        {
+          'feature': 'Projects',
+          'values': <Object?>[3, 'Unlimited', 'Unlimited'],
+        },
+        {
+          'feature': 'SSO and SAML',
+          'values': <Object?>[false, true, true],
+        },
+        {
+          'feature': 'Audit log',
+          'values': <Object?>[false, true, true],
+        },
+        {
+          'feature': 'Dedicated support',
+          'values': <Object?>[false, false, true],
+        },
+        {
+          'feature': 'Uptime SLA',
+          'values': <Object?>['', '99.9%', '99.99%'],
+        },
+      ],
     },
+  ]),
+  'StatGroup': GallerySample([
     {
-      'id': 'group',
+      'id': 'root',
       'component': 'StatGroup',
       'items': [
         {'label': 'Visitors', 'value': '84,210', 'delta': '+8.1%'},
         {'label': 'Signups', 'value': 2318, 'delta': '+14.6%'},
+        {
+          'label': 'Conversion',
+          'value': '2.75%',
+          'delta': '-0.3%',
+          'trend': 'down',
+        },
         {
           'label': 'Avg. session',
           'value': '4m 12s',
@@ -461,53 +243,37 @@ final Map<String, List<Map<String, Object?>>> gallerySamples = {
         },
       ],
     },
-  ],
-  'details': [
+  ]),
+  'KeyValueList': GallerySample([
     {
       'id': 'root',
-      'component': 'Section',
-      'eyebrow': 'Order',
-      'title': 'Order #A-20481',
-      'description': 'Shipped to Lisbon.',
-      'children': ['kv', 'alert', 'callout'],
-    },
-    {
-      'id': 'kv',
       'component': 'KeyValueList',
-      'title': 'Summary',
+      'title': 'Order #A-20481',
       'items': [
         {'label': 'Placed', 'value': 'Oct 14, 2026', 'hint': '9:42 AM PT'},
         {'label': 'Items', 'value': 3},
+        {'label': 'Shipping', 'value': 'Express, 2 days'},
+        {'label': 'Subtotal', 'value': r'$218.00'},
         {'label': 'Total', 'value': r'$236.40', 'hint': r'Incl. $18.40 tax'},
       ],
     },
-    {
-      'id': 'alert',
-      'component': 'Alert',
-      'tone': 'warning',
-      'title': 'Usage at 92% of plan',
-      'message': 'You will hit the request limit in about 3 days.',
-    },
-    {
-      'id': 'callout',
-      'component': 'Callout',
-      'title': 'Tip',
-      'text': 'Fixed-schema surfaces paint as soon as the data lands.',
-      'actionLabel': 'Learn more',
-      'onAction': {
-        'event': {'name': 'learn_more'},
-      },
-    },
-  ],
-  // Phase 2a: the playground's chart samples (samples/charts.ts).
-  'charts': [
+  ]),
+  'Stat': GallerySample([
     {
       'id': 'root',
-      'component': 'Column',
-      'children': ['line', 'area', 'bar', 'pie', 'scatter', 'spark'],
+      'component': 'Stat',
+      'label': 'Monthly recurring revenue',
+      'value': r'$48.2k',
+      'delta': '+12.4%',
+      'caption': 'vs. September, 1,284 active accounts',
+      'icon': 'trending-up',
+      'tone': 'default',
     },
+  ]),
+  // Charts.
+  'LineChart': GallerySample([
     {
-      'id': 'line',
+      'id': 'root',
       'component': 'LineChart',
       'title': 'Weekly active users',
       'subtitle': 'Web vs mobile, last 12 months',
@@ -523,8 +289,10 @@ final Map<String, List<Map<String, Object?>>> gallerySamples = {
         ]),
       ],
     },
+  ]),
+  'AreaChart': GallerySample([
     {
-      'id': 'area',
+      'id': 'root',
       'component': 'AreaChart',
       'title': 'Inference spend by workload',
       'subtitle': 'Stacked monthly cost, USD',
@@ -545,8 +313,10 @@ final Map<String, List<Map<String, Object?>>> gallerySamples = {
         ]),
       ],
     },
+  ]),
+  'BarChart': GallerySample([
     {
-      'id': 'bar',
+      'id': 'root',
       'component': 'BarChart',
       'title': 'Revenue by region',
       'subtitle': 'Quarterly, USD',
@@ -564,8 +334,10 @@ final Map<String, List<Map<String, Object?>>> gallerySamples = {
         ),
       ],
     },
+  ]),
+  'PieChart': GallerySample([
     {
-      'id': 'pie',
+      'id': 'root',
       'component': 'PieChart',
       'title': 'Traffic sources',
       'subtitle': 'Sessions, last 30 days',
@@ -580,8 +352,10 @@ final Map<String, List<Map<String, Object?>>> gallerySamples = {
         {'label': 'Email', 'value': 5300},
       ],
     },
+  ]),
+  'ScatterChart': GallerySample([
     {
-      'id': 'scatter',
+      'id': 'root',
       'component': 'ScatterChart',
       'title': 'Latency vs throughput',
       'subtitle': 'Per deployment, bubble size is replica count',
@@ -605,8 +379,10 @@ final Map<String, List<Map<String, Object?>>> gallerySamples = {
           {'x': x, 'y': y, 'size': size, 'series': series, 'label': label},
       ],
     },
+  ]),
+  'Sparkline': GallerySample([
     {
-      'id': 'spark',
+      'id': 'root',
       'component': 'Sparkline',
       'label': 'Monthly recurring revenue',
       'value': r'$184.2K',
@@ -616,16 +392,426 @@ final Map<String, List<Map<String, Object?>>> gallerySamples = {
         128, 131, 129, 138, 142, 140, 149, 155, 153, 162, 171, 168, 176, 184, //
       ],
     },
-  ],
-  // CopilotKit's standard Chart, as recharts draws it.
-  'chart': [
+  ]),
+  // Feedback.
+  'Alert': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Alert',
+      'tone': 'warning',
+      'title': 'Usage at 92% of plan',
+      'message':
+          'You will hit the request limit in about 3 days at the current rate.',
+    },
+  ]),
+  'Callout': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Callout',
+      'title': 'Tip',
+      'text':
+          'Fixed-schema surfaces paint as soon as the data lands. '
+          'Use them for the requests you see every day.',
+      'actionLabel': 'Learn more',
+      'onAction': {
+        'event': {'name': 'learn_more'},
+      },
+    },
+  ]),
+  // Standard layout.
+  'Box': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Box',
+      'gap': 1,
+      'children': ['t', 'c'],
+    },
+    {'id': 't', 'component': 'Title', 'text': 'Box'},
+    {
+      'id': 'c',
+      'component': 'Caption',
+      'text': 'A flex column by default. Set direction to "row" for a row.',
+    },
+  ]),
+  'Column': GallerySample([
     {
       'id': 'root',
       'component': 'Column',
-      'children': ['bars', 'cost', 'donut'],
+      'children': ['t', 'b', 'c'],
+    },
+    {'id': 't', 'component': 'Title', 'text': 'Weekly summary'},
+    {
+      'id': 'b',
+      'component': 'Text',
+      'text': 'Deploys finished **12% faster** than last week.',
+    },
+    {'id': 'c', 'component': 'Caption', 'text': 'Updated 5 minutes ago'},
+  ]),
+  'Row': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Row',
+      'justify': 'spaceBetween',
+      'align': 'center',
+      'children': ['k', 'v'],
+    },
+    {'id': 'k', 'component': 'Caption', 'text': 'Plan'},
+    {
+      'id': 'v',
+      'component': 'Text',
+      'text': 'Team, billed yearly',
+      'fontWeight': 'semibold',
+    },
+  ]),
+  'Grid': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Grid',
+      'columns': 2,
+      'gap': 4,
+      'children': ['a', 'b', 'c', 'd'],
+    },
+    ..._stat('a', 'Visitors', '48.2K'),
+    ..._stat('b', 'Signups', '1,284'),
+    ..._stat('c', 'Trials', '312'),
+    ..._stat('d', 'Paid', '96'),
+  ]),
+  'GridItem': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Grid',
+      'columns': 3,
+      'gap': 3,
+      'children': ['wide', 'narrow'],
     },
     {
-      'id': 'bars',
+      'id': 'wide',
+      'component': 'GridItem',
+      'span': 2,
+      'children': ['wide_t', 'wide_c'],
+    },
+    {'id': 'wide_t', 'component': 'Title', 'text': 'Pipeline'},
+    {
+      'id': 'wide_c',
+      'component': 'Caption',
+      'text': 'Spans two of three columns.',
+    },
+    {
+      'id': 'narrow',
+      'component': 'GridItem',
+      'children': ['narrow_t', 'narrow_c'],
+    },
+    {'id': 'narrow_t', 'component': 'Title', 'text': 'Owner'},
+    {'id': 'narrow_c', 'component': 'Caption', 'text': 'One column.'},
+  ]),
+  'Card': GallerySample(
+    [
+      {
+        'id': 'root',
+        'component': 'Card',
+        'children': ['t', 'c', 'email', 'send'],
+      },
+      {'id': 't', 'component': 'Title', 'text': 'Invite a teammate'},
+      {
+        'id': 'c',
+        'component': 'Caption',
+        'text': 'They get an email with a sign-in link.',
+      },
+      {
+        'id': 'email',
+        'component': 'TextField',
+        'label': 'Email',
+        'variant': 'email',
+        'placeholder': 'name@company.com',
+        'value': {'@path': '/invite/email'},
+      },
+      {
+        'id': 'send',
+        'component': 'Button',
+        'label': 'Send invite',
+        'variant': 'primary',
+      },
+    ],
+    data: {
+      'invite': {'email': ''},
+    },
+  ),
+  'Divider': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Column',
+      'children': ['a', 'line', 'b'],
+    },
+    {'id': 'a', 'component': 'Text', 'text': 'Order #4821 shipped on Monday.'},
+    {'id': 'line', 'component': 'Divider'},
+    {'id': 'b', 'component': 'Text', 'text': 'Expected delivery: Thursday.'},
+  ]),
+  // Standard text.
+  'Title': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Title',
+      'text': 'Quarterly review',
+      'size': 'xl',
+    },
+  ]),
+  'Text': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Text',
+      'text':
+          'Deploys finished **12% faster** this week, '
+          'and no release was rolled back.',
+    },
+  ]),
+  'Caption': GallerySample([
+    {'id': 'root', 'component': 'Caption', 'text': 'Updated 5 minutes ago'},
+  ]),
+  'Label': GallerySample([
+    {'id': 'root', 'component': 'Label', 'text': 'Email address'},
+  ]),
+  'Bold': GallerySample([
+    {'id': 'root', 'component': 'Bold', 'text': 'Ships on Friday'},
+  ]),
+  'Italic': GallerySample([
+    {'id': 'root', 'component': 'Italic', 'text': 'Draft, not reviewed yet'},
+  ]),
+  'Underline': GallerySample([
+    {'id': 'root', 'component': 'Underline', 'text': 'Read before you sign'},
+  ]),
+  'Strikethrough': GallerySample([
+    {'id': 'root', 'component': 'Strikethrough', 'text': r'$49 per month'},
+  ]),
+  'Badge': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Row',
+      'gap': 2,
+      'children': ['a', 'b', 'c'],
+    },
+    {'id': 'a', 'component': 'Badge', 'label': 'Active', 'color': 'success'},
+    {'id': 'b', 'component': 'Badge', 'label': 'Pending', 'color': 'warning'},
+    {'id': 'c', 'component': 'Badge', 'label': 'Failed', 'color': 'danger'},
+  ]),
+  'Blockquote': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Blockquote',
+      'text': 'Ship small changes often, and **measure** each one.',
+    },
+  ]),
+  'Code': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Code',
+      'language': 'ts',
+      'text':
+          'const total = items.reduce((sum, item) => sum + item.price, 0);\n'
+          r'console.log(`Total: ${total}`);',
+    },
+  ]),
+  'Markdown': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Markdown',
+      'text':
+          '**Next steps**\n\n'
+          '1. Confirm the venue\n'
+          '2. Send the invites\n'
+          '3. Book travel by *Friday*',
+    },
+  ]),
+  'Math': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Math',
+      'value': r'\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i',
+      'block': true,
+    },
+  ]),
+  'Link': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Link',
+      'text': 'Read the standard catalog docs',
+      'href':
+          'https://docs.copilotkit.ai/generative-ui/components/standard-catalog',
+    },
+  ]),
+  // Standard inputs.
+  'Button': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Row',
+      'gap': 2,
+      'children': ['cancel', 'save'],
+    },
+    {'id': 'cancel', 'component': 'Button', 'label': 'Cancel'},
+    {
+      'id': 'save',
+      'component': 'Button',
+      'label': 'Save changes',
+      'variant': 'primary',
+    },
+  ]),
+  'Form': GallerySample(
+    [
+      {
+        'id': 'root',
+        'component': 'Form',
+        'label': 'Newsletter',
+        'children': ['email', 'submit'],
+      },
+      {
+        'id': 'email',
+        'component': 'TextField',
+        'label': 'Email',
+        'variant': 'email',
+        'placeholder': 'name@company.com',
+        'value': {'@path': '/form/email'},
+      },
+      {
+        'id': 'submit',
+        'component': 'Button',
+        'label': 'Subscribe',
+        'variant': 'primary',
+        'submit': true,
+      },
+    ],
+    data: {
+      'form': {'email': ''},
+    },
+  ),
+  'TextField': GallerySample(
+    [
+      {
+        'id': 'root',
+        'component': 'TextField',
+        'label': 'Work email',
+        'variant': 'email',
+        'placeholder': 'name@company.com',
+        'value': {'@path': '/form/email'},
+      },
+    ],
+    data: {
+      'form': {'email': ''},
+    },
+  ),
+  'Select': GallerySample(
+    [
+      {
+        'id': 'root',
+        'component': 'Select',
+        'label': 'Region',
+        'value': {'@path': '/form/region'},
+        'options': [
+          {'value': 'us', 'label': 'United States'},
+          {'value': 'eu', 'label': 'Europe'},
+          {'value': 'apac', 'label': 'Asia Pacific'},
+        ],
+      },
+    ],
+    data: {
+      'form': {'region': 'eu'},
+    },
+  ),
+  'CheckBox': GallerySample(
+    [
+      {
+        'id': 'root',
+        'component': 'CheckBox',
+        'label': 'Email me a weekly summary',
+        'value': {'@path': '/form/digest'},
+      },
+    ],
+    data: {
+      'form': {'digest': true},
+    },
+  ),
+  'RadioGroup': GallerySample(
+    [
+      {
+        'id': 'root',
+        'component': 'RadioGroup',
+        'label': 'Plan',
+        'direction': 'col',
+        'value': {'@path': '/form/plan'},
+        'options': [
+          {'value': 'free', 'label': 'Free'},
+          {'value': 'team', 'label': 'Team', 'description': 'Up to 30 seats'},
+          {'value': 'enterprise', 'label': 'Enterprise'},
+        ],
+      },
+    ],
+    data: {
+      'form': {'plan': 'team'},
+    },
+  ),
+  // Standard data and media.
+  'Table': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Table',
+      'caption': 'Top pages',
+      'columns': [
+        'Page',
+        {'label': 'Views', 'align': 'end'},
+        {'label': 'Bounce', 'align': 'end'},
+      ],
+      'rows': [
+        <Object?>['/pricing', 18420, '31%'],
+        <Object?>['/docs/quickstart', 12950, '24%'],
+        <Object?>['/blog/launch', 9310, '47%'],
+      ],
+    },
+  ]),
+  'TableSection': GallerySample(_incidents),
+  'TableRow': GallerySample(_incidents),
+  'TableCell': GallerySample(_incidents),
+  'List': GallerySample([
+    {
+      'id': 'root',
+      'component': 'List',
+      'marker': 'number',
+      'items': [
+        'Connect your repository',
+        'Pick a framework preset',
+        'Deploy the main branch',
+      ],
+    },
+  ]),
+  'ListItem': GallerySample([
+    {
+      'id': 'root',
+      'component': 'List',
+      'marker': 'none',
+      'children': ['i1', 'i2', 'i3'],
+    },
+    {
+      'id': 'i1',
+      'component': 'ListItem',
+      'icon': 'users',
+      'label': 'Seats',
+      'value': '24 of 30',
+    },
+    {
+      'id': 'i2',
+      'component': 'ListItem',
+      'icon': 'hard-drive',
+      'label': 'Storage',
+      'value': '61 GB',
+    },
+    {
+      'id': 'i3',
+      'component': 'ListItem',
+      'icon': 'calendar',
+      'label': 'Renews',
+      'value': 'Dec 1',
+    },
+  ]),
+  'Chart': GallerySample([
+    {
+      'id': 'root',
       'component': 'Chart',
       'chartType': 'bar',
       'title': 'Signups by week',
@@ -640,51 +826,113 @@ final Map<String, List<Map<String, Object?>>> gallerySamples = {
         {'week': 'W4', 'signups': 208},
       ],
     },
+  ]),
+  'Icon': GallerySample([
     {
-      'id': 'cost',
-      'component': 'Chart',
-      'chartType': 'area',
-      'title': 'Monthly cost',
-      'xKey': 'month',
-      'series': ['cost', 'budget'],
-      'stacked': true,
-      'format': 'currency',
-      'data': [
-        {'month': 'Jan', 'cost': 290, 'budget': 120},
-        {'month': 'Feb', 'cost': 580, 'budget': 140},
-        {'month': 'Mar', 'cost': 410, 'budget': 160},
-      ],
+      'id': 'root',
+      'component': 'Row',
+      'gap': 4,
+      'align': 'center',
+      'children': ['a', 'b', 'c', 'd'],
     },
     {
-      'id': 'donut',
-      'component': 'Chart',
-      'chartType': 'donut',
-      'xKey': 'name',
-      'series': ['amount'],
-      'format': 'percent',
-      'showValueLabels': true,
-      'data': [
-        {'name': 'First', 'amount': 0.4},
-        {'name': 'Second', 'amount': 0.35},
-        {'name': 'Third', 'amount': 0.25},
+      'id': 'a',
+      'component': 'Icon',
+      'name': 'rocket',
+      'size': 'lg',
+      'label': 'Launch',
+    },
+    {
+      'id': 'b',
+      'component': 'Icon',
+      'name': 'calendar',
+      'size': 'lg',
+      'label': 'Calendar',
+    },
+    {
+      'id': 'c',
+      'component': 'Icon',
+      'name': 'map-pin',
+      'size': 'lg',
+      'label': 'Location',
+    },
+    {
+      'id': 'd',
+      'component': 'Icon',
+      'name': 'bell',
+      'size': 'lg',
+      'label': 'Alerts',
+    },
+  ]),
+  'Svg': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Svg',
+      'label': 'A sun over two hills',
+      'viewBox': '0 0 120 60',
+      'size': 180,
+      'circles': [
+        {'cx': 88, 'cy': 20, 'r': 10, 'fill': 'warning'},
+      ],
+      'paths': [
+        {'d': 'M0 60 Q30 20 60 60 Z', 'fill': 'success'},
+        {'d': 'M40 60 Q75 28 120 60 Z', 'fill': 'info'},
       ],
     },
-  ],
+  ]),
+  // The playground agent's stand-in: a frame sized for the component
+  // whose props are still streaming, captioned with the name already
+  // written. `#stops` is an id whose type has not arrived.
+  'Blueprint': GallerySample([
+    {
+      'id': 'root',
+      'component': 'Column',
+      'gap': 3,
+      'children': ['title', 'stat', 'chart', 'table', 'pending', 'quiet'],
+    },
+    {
+      'id': 'title',
+      'component': 'Blueprint',
+      'of': 'Heading',
+      'state': 'streaming',
+    },
+    {
+      'id': 'stat',
+      'component': 'Blueprint',
+      'of': 'Stat',
+      'state': 'streaming',
+    },
+    {
+      'id': 'chart',
+      'component': 'Blueprint',
+      'of': 'BarChart',
+      'state': 'streaming',
+    },
+    {
+      'id': 'table',
+      'component': 'Blueprint',
+      'of': 'DataTable',
+      'state': 'streaming',
+    },
+    {
+      'id': 'pending',
+      'component': 'Blueprint',
+      'of': '#stops',
+      'state': 'pending',
+    },
+    {
+      'id': 'quiet',
+      'component': 'Blueprint',
+      'of': 'WeatherCard',
+      'hideName': true,
+      'state': 'streaming',
+    },
+  ]),
 };
 
 const List<String> _months = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', //
+  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
 ];
 
 /// One row per value of the series [name], x from [xs] (the months).
@@ -695,4 +943,16 @@ List<Map<String, Object?>> _series(
 ]) => [
   for (var i = 0; i < values.length; i++)
     {'x': xs[i], 'y': values[i], 'series': name},
+];
+
+/// A caption over an xl title, the Grid preview's cells.
+List<Map<String, Object?>> _stat(String id, String label, String value) => [
+  {
+    'id': id,
+    'component': 'Column',
+    'gap': 1,
+    'children': ['${id}_k', '${id}_v'],
+  },
+  {'id': '${id}_k', 'component': 'Caption', 'text': label},
+  {'id': '${id}_v', 'component': 'Title', 'text': value, 'size': 'xl'},
 ];

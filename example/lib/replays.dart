@@ -98,7 +98,9 @@ class _ReplayViewState extends State<ReplayView> {
     _errors.clear();
     _ids = A2uiIdNormalizer();
     final processor = MessageProcessor<ComponentImplementation>(
-      catalogs: [a2uiKitCatalog()],
+      catalogs: [
+        a2uiKitCatalog(options: const A2uiKitOptions(includeBlueprint: true)),
+      ],
       reportErrorsOnly: true,
     );
     processor.model.onSurfaceCreated.subscribe((surface) {
