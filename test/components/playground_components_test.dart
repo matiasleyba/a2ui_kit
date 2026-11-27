@@ -1,7 +1,7 @@
 // Widget tests of the playground's Section, Heading, Stat, StatGroup,
 // KeyValueList, Agenda, Timeline, ComparisonTable, Progress, Rating,
-// Alert and Callout, after its renderers (layout, content, data and
-// feedback .tsx).
+// TagList, Quote, Alert and Callout, after its renderers (layout, content,
+// data and feedback .tsx).
 
 import 'package:a2ui_kit/a2ui_kit.dart';
 import 'package:a2ui_kit/src/components/playground/data_display/kpi.dart';
@@ -1053,6 +1053,79 @@ void main() {
       ]);
       expect(find.text('5.0'), findsOneWidget);
       expect(find.bySemanticsLabel('5.0 out of 5 stars'), findsOneWidget);
+    });
+  });
+
+  group('TagList', () {
+    testWidgets('draws each tag as a chip', (tester) async {
+      await pumpComponents(tester, theme: _light, [
+        _root({
+          'component': 'TagList',
+          'tags': ['TypeScript', 'React 19', 'pnpm'],
+        }),
+      ]);
+      expect(find.text('TypeScript'), findsOneWidget);
+      expect(find.text('React 19'), findsOneWidget);
+      expect(find.text('pnpm'), findsOneWidget);
+    });
+
+    testWidgets('skips empty tags', (tester) async {
+      await pumpComponents(tester, theme: _light, [
+        _root({
+          'component': 'TagList',
+          'tags': ['Alpha', '', 'Beta'],
+        }),
+      ]);
+      expect(find.text('Alpha'), findsOneWidget);
+      expect(find.text('Beta'), findsOneWidget);
+      expect(find.text(''), findsNothing);
+    });
+  });
+
+  group('Quote', () {
+    testWidgets('draws the quote, author and role', (tester) async {
+      await pumpComponents(tester, theme: _light, [
+        _root({
+          'component': 'Quote',
+          'text': 'The best interface is already filled in.',
+          'author': 'Maya Chen',
+          'role': 'Head of Design',
+        }),
+      ]);
+      expect(
+        find.text('The best interface is already filled in.'),
+        findsOneWidget,
+      );
+      expect(find.textContaining('Maya Chen'), findsOneWidget);
+      expect(find.textContaining('Head of Design'), findsOneWidget);
+      expect(
+        tester.widget<LucideGlyph>(find.byType(LucideGlyph)).icon.name,
+        'Quote',
+      );
+    });
+  });
+
+  group('Agenda multiline', () {
+    testWidgets('lets a long description wrap past two lines', (tester) async {
+      const long =
+          'Goals for the week, the demo path, the fallback plan, '
+          'and every follow-up the launch owners still owe before Friday.';
+      await pumpComponents(tester, theme: _light, width: 320, [
+        _root({
+          'component': 'Agenda',
+          'days': [
+            {
+              'date': '2026-11-24',
+              'events': [
+                {'time': '09:30', 'title': 'Kickoff', 'description': long},
+              ],
+            },
+          ],
+        }),
+      ]);
+      final text = tester.widget<Text>(find.text(long));
+      expect(text.maxLines, isNull);
+      expect(tester.getSize(find.text(long)).height, greaterThan(30));
     });
   });
 }

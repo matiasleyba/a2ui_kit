@@ -19,7 +19,7 @@ unchanged.
 
 ## Why a2ui_kit
 
-- **60 components today**, more in every release: layout, text, maths,
+- **65 components today**, more in every release: layout, text, maths,
   tables, charts, forms, lists, schedules, ratings and media.
 - **The same JSON as the web.** Component names, props and JSON Schemas are
   CopilotKit's, and an agent's messages are checked as CopilotKit checks
@@ -35,15 +35,15 @@ unchanged.
 
 | Group | Components |
 |---|---|
-| Layout | Box, Column, Row, Grid, GridItem, Card, Flow, FlowItem, Section, Spacer, Divider |
-| Text | Title, Heading, Text, Caption, Label, Bold, Italic, Underline, Strikethrough, Badge, Blockquote, Code, Markdown, Math, Link |
-| Data | Table, TableSection, TableRow, TableCell, List, ListItem, KeyValueList, Stat, StatGroup, Agenda, ComparisonTable, Progress, Rating, Timeline |
+| Layout | Box, Column, Row, Grid, GridItem, Card, Flow, FlowItem, Carousel, CarouselItem, Section, Spacer, Divider |
+| Text | Title, Heading, Text, Caption, Label, Bold, Italic, Underline, Strikethrough, Badge, Blockquote, Code, Markdown, Math, Link, Quote |
+| Data | Table, TableSection, TableRow, TableCell, List, ListItem, KeyValueList, Stat, StatGroup, Agenda, ComparisonTable, Progress, Rating, TagList, Timeline |
 | Charts | LineChart, AreaChart, BarChart, PieChart, ScatterChart, Sparkline, Chart |
 | Forms | Form, TextField, Select, CheckBox, RadioGroup, Button |
 | Cards and prompts | EntityCard, FollowUp |
-| Media and notices | Image, Icon, Svg, Alert, Callout |
+| Media and notices | Image, Icon, Svg, Alert, Callout, PulseIndicator |
 
-All 16 functions run, `calc` and `series` included. The catalog's other 61
+All 16 functions run, `calc` and `series` included. The catalog's other 56
 components (practice cards, maps, more charts, business cards and more) are
 in the catalog already, so payloads that use them validate, but they draw
 nothing yet: they arrive release by release.
