@@ -298,5 +298,4 @@ class MacroExpander {
   }
 }
 
-// PORT STATUS: confidence=high todos=0
-// upstream=examples/showcases/a2ui-playground/src/a2ui/macros/macro.ts
+// PORT STATUS: confidence=high todos=0 upstream=examples/showcases/a2ui-playground/src/a2ui/macros/macro.ts

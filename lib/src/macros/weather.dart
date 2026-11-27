@@ -302,5 +302,4 @@ final Weather sampleLisbonWeather = Weather(
   ],
 );
 
-// PORT STATUS: confidence=high todos=0
-// upstream=examples/showcases/a2ui-playground/src/agent/apis.ts
+// PORT STATUS: confidence=high todos=0 upstream=examples/showcases/a2ui-playground/src/agent/apis.ts

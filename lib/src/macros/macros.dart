@@ -265,5 +265,4 @@ List<Map<String, Object?>> expandMacroSample(String name) {
   }
 }
 
-// PORT STATUS: confidence=high todos=0
-// upstream=examples/showcases/a2ui-playground/src/a2ui/macros/macros.ts
+// PORT STATUS: confidence=high todos=0 upstream=examples/showcases/a2ui-playground/src/a2ui/macros/macros.ts

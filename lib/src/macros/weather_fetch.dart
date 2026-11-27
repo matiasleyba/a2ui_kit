@@ -206,5 +206,4 @@ String _weekday(DateTime date) {
   return names[date.weekday - 1];
 }
 
-// PORT STATUS: confidence=high todos=0
-// upstream=examples/showcases/a2ui-playground/src/agent/apis.ts
+// PORT STATUS: confidence=high todos=0 upstream=examples/showcases/a2ui-playground/src/agent/apis.ts
