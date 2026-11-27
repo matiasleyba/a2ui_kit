@@ -8,6 +8,15 @@ import '../tool/src/lucide.dart';
 /// Fails when lib/src/document/*.g.dart is not what tool/generate.dart
 /// makes from the fixtures: run `dart run tool/generate.dart`.
 void main() {
+  // Three tests read the lucide-react packages, which are not in the
+  // repository (port/RULEBOOK.md §0 item 4). Without them those tests skip
+  // and say how to fetch them; on CI (`CI=true`) they always run, so a
+  // missing package fails there instead of passing unseen.
+  final needsLucide =
+      missingLucideSources().isEmpty || Platform.environment['CI'] == 'true'
+      ? false
+      : 'needs the lucide-react packages: run tool/fetch_third_party.sh';
+
   final files = generate(
     catalogJson: File(catalogFixturePath).readAsStringSync(),
     inferenceJson: File(inferenceFixturePath).readAsStringSync(),
@@ -58,111 +67,126 @@ void main() {
     });
   }
 
-  test('generate.dart --check compares the formatted output exactly', () async {
-    // A copy of the committed files, so the package's own stay untouched
-    // whatever happens to the test.
-    final root = Directory('.dart_tool/a2ui_kit_sync_test');
-    if (root.existsSync()) root.deleteSync(recursive: true);
-    addTearDown(() {
+  test(
+    'generate.dart --check compares the formatted output exactly',
+    () async {
+      // A copy of the committed files, so the package's own stay untouched
+      // whatever happens to the test.
+      final root = Directory('.dart_tool/a2ui_kit_sync_test');
       if (root.existsSync()) root.deleteSync(recursive: true);
-    });
-    for (final path in [...files.map((f) => f.path), lucideTablePath]) {
-      File('${root.path}/$path')
-        ..createSync(recursive: true)
-        ..writeAsStringSync(File(path).readAsStringSync());
-    }
-    Future<ProcessResult> check() => Process.run('dart', [
-      'run',
-      'tool/generate.dart',
-      '--check',
-      '--root=${root.path}',
-    ], runInShell: true);
+      addTearDown(() {
+        if (root.existsSync()) root.deleteSync(recursive: true);
+      });
+      for (final path in [...files.map((f) => f.path), lucideTablePath]) {
+        File('${root.path}/$path')
+          ..createSync(recursive: true)
+          ..writeAsStringSync(File(path).readAsStringSync());
+      }
+      Future<ProcessResult> check() => Process.run('dart', [
+        'run',
+        'tool/generate.dart',
+        '--check',
+        '--root=${root.path}',
+      ], runInShell: true);
 
-    final fresh = await check();
-    expect(fresh.exitCode, 0, reason: '${fresh.stdout}${fresh.stderr}');
+      final fresh = await check();
+      expect(fresh.exitCode, 0, reason: '${fresh.stdout}${fresh.stderr}');
 
-    // A doubled space in a doc comment, which a comparison that drops
-    // whitespace would miss.
-    final props = File('${root.path}/lib/src/document/props.g.dart');
-    props.writeAsStringSync(
-      props.readAsStringSync().replaceFirst('The values of', 'The  values of'),
-    );
-    expect(props.readAsStringSync(), contains('The  values of'));
-    // And one Lucide path drawn a pixel longer.
-    final table = File('${root.path}/$lucideTablePath');
-    table.writeAsStringSync(
-      table.readAsStringSync().replaceFirst(
-        "LucidePath('M5 12h14')",
-        "LucidePath('M5 12h15')",
-      ),
-    );
-    expect(table.readAsStringSync(), contains("LucidePath('M5 12h15')"));
-    final stale = await check();
-    expect(stale.exitCode, 1, reason: '${stale.stdout}${stale.stderr}');
-    expect('${stale.stderr}', contains('props.g.dart'));
-    expect('${stale.stderr}', contains('lucide_icons.g.dart'));
+      // A doubled space in a doc comment, which a comparison that drops
+      // whitespace would miss.
+      final props = File('${root.path}/lib/src/document/props.g.dart');
+      props.writeAsStringSync(
+        props.readAsStringSync().replaceFirst(
+          'The values of',
+          'The  values of',
+        ),
+      );
+      expect(props.readAsStringSync(), contains('The  values of'));
+      // And one Lucide path drawn a pixel longer.
+      final table = File('${root.path}/$lucideTablePath');
+      table.writeAsStringSync(
+        table.readAsStringSync().replaceFirst(
+          "LucidePath('M5 12h14')",
+          "LucidePath('M5 12h15')",
+        ),
+      );
+      expect(table.readAsStringSync(), contains("LucidePath('M5 12h15')"));
+      final stale = await check();
+      expect(stale.exitCode, 1, reason: '${stale.stdout}${stale.stderr}');
+      expect('${stale.stderr}', contains('props.g.dart'));
+      expect('${stale.stderr}', contains('lucide_icons.g.dart'));
 
-    // Without the lucide-react packages the check stops, rather than pass a
-    // table it cannot compare.
-    final empty = Directory('${root.path}/no-sources')..createSync();
-    final unsourced = await Process.run(
-      'dart',
-      ['run', 'tool/generate.dart', '--check', '--root=${root.path}'],
-      runInShell: true,
-      environment: {'A2UI_THIRDPARTY_SRC': empty.path},
-    );
-    expect(
-      unsourced.exitCode,
-      1,
-      reason: '${unsourced.stdout}${unsourced.stderr}',
-    );
-    expect(
-      '${unsourced.stderr}',
-      contains('lucide-react@0.525.0 is not in ${empty.path}'),
-    );
-    expect('${unsourced.stderr}', contains('lucide-react@1.57.0 is not in'));
+      // Without the lucide-react packages the check stops, rather than pass a
+      // table it cannot compare.
+      final empty = Directory('${root.path}/no-sources')..createSync();
+      final unsourced = await Process.run(
+        'dart',
+        ['run', 'tool/generate.dart', '--check', '--root=${root.path}'],
+        runInShell: true,
+        environment: {'A2UI_THIRDPARTY_SRC': empty.path},
+      );
+      expect(
+        unsourced.exitCode,
+        1,
+        reason: '${unsourced.stdout}${unsourced.stderr}',
+      );
+      expect(
+        '${unsourced.stderr}',
+        contains('lucide-react@0.525.0 is not in ${empty.path}'),
+      );
+      expect('${unsourced.stderr}', contains('lucide-react@1.57.0 is not in'));
 
-    // `--root` without `--check` is refused rather than writing the
-    // package's own files (review 2a A-nit).
-    final write = await Process.run('dart', [
-      'run',
-      'tool/generate.dart',
-      '--root=${root.path}',
-    ], runInShell: true);
-    expect(write.exitCode, 64, reason: '${write.stdout}${write.stderr}');
-    expect('${write.stderr}', contains('--root=<dir> only works with --check'));
+      // `--root` without `--check` is refused rather than writing the
+      // package's own files (review 2a A-nit).
+      final write = await Process.run('dart', [
+        'run',
+        'tool/generate.dart',
+        '--root=${root.path}',
+      ], runInShell: true);
+      expect(write.exitCode, 64, reason: '${write.stdout}${write.stderr}');
+      expect(
+        '${write.stderr}',
+        contains('--root=<dir> only works with --check'),
+      );
 
-    // `--root <dir>` (a space, not `=`) and any argument the tool doesn't
-    // read are refused before anything is written, rather than ignored
-    // (review 2a regen Q17): the run would write the package's own files.
-    // A write leaves the same text, so the file's time shows it.
-    final committed = File(files.first.path);
-    final before = committed.lastModifiedSync();
-    final spaced = await Process.run('dart', [
-      'run',
-      'tool/generate.dart',
-      '--check',
-      '--root',
-      root.path,
-    ], runInShell: true);
-    expect(spaced.exitCode, 64, reason: '${spaced.stdout}${spaced.stderr}');
-    expect(
-      '${spaced.stderr}',
-      contains('--root takes its directory as --root=<dir>.'),
-    );
-    final unknown = await Process.run('dart', [
-      'run',
-      'tool/generate.dart',
-      '--frobnicate',
-    ], runInShell: true);
-    expect(unknown.exitCode, 64, reason: '${unknown.stdout}${unknown.stderr}');
-    expect('${unknown.stderr}', contains('Unknown argument: --frobnicate.'));
-    expect(
-      '${unknown.stderr}',
-      contains('Usage: dart run tool/generate.dart [--check [--root=<dir>]]'),
-    );
-    expect(committed.lastModifiedSync(), before);
-  }, timeout: const Timeout(Duration(minutes: 8)));
+      // `--root <dir>` (a space, not `=`) and any argument the tool doesn't
+      // read are refused before anything is written, rather than ignored
+      // (review 2a regen Q17): the run would write the package's own files.
+      // A write leaves the same text, so the file's time shows it.
+      final committed = File(files.first.path);
+      final before = committed.lastModifiedSync();
+      final spaced = await Process.run('dart', [
+        'run',
+        'tool/generate.dart',
+        '--check',
+        '--root',
+        root.path,
+      ], runInShell: true);
+      expect(spaced.exitCode, 64, reason: '${spaced.stdout}${spaced.stderr}');
+      expect(
+        '${spaced.stderr}',
+        contains('--root takes its directory as --root=<dir>.'),
+      );
+      final unknown = await Process.run('dart', [
+        'run',
+        'tool/generate.dart',
+        '--frobnicate',
+      ], runInShell: true);
+      expect(
+        unknown.exitCode,
+        64,
+        reason: '${unknown.stdout}${unknown.stderr}',
+      );
+      expect('${unknown.stderr}', contains('Unknown argument: --frobnicate.'));
+      expect(
+        '${unknown.stderr}',
+        contains('Usage: dart run tool/generate.dart [--check [--root=<dir>]]'),
+      );
+      expect(committed.lastModifiedSync(), before);
+    },
+    timeout: const Timeout(Duration(minutes: 8)),
+    skip: needsLucide,
+  );
 
   test('the generator refuses a document with another component count', () {
     final catalog = File(catalogFixturePath).readAsStringSync().replaceFirst(
@@ -191,7 +215,7 @@ void main() {
     );
     expect(lucidePascalName('arrow-down-0-1'), 'ArrowDown01');
     expect(lucidePascalName('arrowRight'), 'ArrowRight');
-  });
+  }, skip: needsLucide);
 
   group('the lucide-react reader', () {
     LucideReactPackage read(String version) => LucideReactPackage.read(
@@ -235,7 +259,7 @@ void main() {
       expect(playground.aliases['XCircle'], 'CircleX');
       expect(playground.aliases, isNot(contains('AlertTriangleIcon')));
       expect(playground.aliases, isNot(contains('LucideAlertTriangle')));
-    });
+    }, skip: needsLucide);
 
     test('stops on a form it does not know', () {
       void refused(Object? Function() read, String message) => expect(
