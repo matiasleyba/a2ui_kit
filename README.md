@@ -1,5 +1,7 @@
 # a2ui_kit
 
+[![CI](https://github.com/vritravaibhav/a2ui_kit/actions/workflows/ci.yml/badge.svg)](https://github.com/vritravaibhav/a2ui_kit/actions/workflows/ci.yml)
+
 Generative UI for Flutter. Your AI agent sends [A2UI](https://a2ui.org/)
 JSON, and a2ui_kit draws it as native Flutter widgets: charts, tables, LaTeX
 maths, Markdown, forms, SVG drawings, cards and more, on Android, iOS, the
@@ -306,6 +308,12 @@ Component definitions, descriptions and samples are from CopilotKit (MIT),
 © Atai Barkai. The catalog documents in `lib/src/document/` are generated from
 CopilotKit's exports; see `NOTICE.md`. a2ui_kit is not affiliated with
 CopilotKit. Icons are Lucide's (ISC), from lucide-react's icon nodes.
+
+## Contributing
+
+Pull requests are welcome. [`CONTRIBUTING.md`](CONTRIBUTING.md) says how to set
+up, what to run before a pull request (the same checks CI runs) and how a pull
+request gets merged.
 
 ## License
 

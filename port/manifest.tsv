@@ -82,13 +82,13 @@ n	component	source	group	size	phase	status	dart_file	confidence	todos	parity	sig
 81	AvatarGroup	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
 82	DataTable	playground	Data display	L	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
 83	KeyValueList	playground	Data display	M	1	built	lib/src/components/playground/data_display/key_value_list.dart	medium	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
-84	Timeline	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+84	Timeline	playground	Data display	S	5	built	lib/src/components/playground/data_display/timeline.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
 85	Progress	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
 86	RadialProgress	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
 87	Rating	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
 88	TagList	playground	Data display	S	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
-89	Agenda	playground	Data display	M	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
-90	ComparisonTable	playground	Data display	M	5	todo							examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+89	Agenda	playground	Data display	M	5	built	lib/src/components/playground/data_display/agenda.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
+90	ComparisonTable	playground	Data display	M	5	built	lib/src/components/playground/data_display/comparison_table.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/data.ts
 91	LineChart	playground	Charts	L	2	built	lib/src/components/playground/charts/line_chart.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
 92	AreaChart	playground	Charts	L	2	built	lib/src/components/playground/charts/area_chart.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
 93	BarChart	playground	Charts	L	2	built	lib/src/components/playground/charts/bar_chart.dart	high	0				examples/showcases/a2ui-playground/src/a2ui/catalog/definitions/charts.ts
