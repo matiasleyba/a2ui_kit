@@ -336,7 +336,7 @@ List<Object?> _list(Object? raw) {
   return value is List ? value : const [];
 }
 
-/// Events rendered before [dayIndex], so a missing tone walks [tokens.chart]
+/// Events rendered before [dayIndex], so a missing tone walks `tokens.chart`
 /// through the whole agenda rather than restarting each day.
 int _eventsBefore(List<Map<String, Object?>> days, int dayIndex) {
   var count = 0;
