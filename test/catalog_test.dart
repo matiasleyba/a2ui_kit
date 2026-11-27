@@ -73,7 +73,7 @@ void main() {
         'Markdown', 'Link', 'Button', 'Form', 'TextField', 'Select',
         'CheckBox', 'RadioGroup', 'List', 'ListItem', 'Image', 'Icon',
         'Section', 'Heading', 'Stat', 'StatGroup', 'KeyValueList', 'Alert',
-        'Callout',
+        'Callout', 'Agenda', 'Timeline', 'ComparisonTable',
         // Phase 2a.
         'Chart', 'LineChart', 'AreaChart', 'BarChart', 'PieChart', //
         'ScatterChart', 'Sparkline',

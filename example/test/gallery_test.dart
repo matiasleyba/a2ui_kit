@@ -4,17 +4,34 @@ import 'package:a2ui_kit_example/samples.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+/// Opens the sample menu and chooses [name], scrolling the menu when the
+/// entry sits below the fold.
+Future<void> _chooseSample(WidgetTester tester, String name) async {
+  await tester.tap(find.byType(DropdownButton<String>));
+  await tester.pumpAndSettle();
+  final item = find.text(name).last;
+  await tester.scrollUntilVisible(
+    item,
+    48,
+    scrollable: find.byType(Scrollable).last,
+  );
+  await tester.pumpAndSettle();
+  await tester.tap(item);
+  await tester.pumpAndSettle();
+}
+
 void main() {
   testWidgets('the gallery shows every sample without an error', (
     tester,
   ) async {
+    // Blueprint's outline keeps flowing, so a settle would not finish.
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
     await tester.pumpWidget(const GalleryApp());
-    expect(find.text('Subtotal', findRichText: true), findsOneWidget);
+    expect(find.text('This week'), findsOneWidget);
     for (final name in gallerySamples.keys.skip(1)) {
-      await tester.tap(find.byType(DropdownButton<String>));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text(name).last);
-      await tester.pumpAndSettle();
+      await _chooseSample(tester, name);
       expect(tester.takeException(), isNull, reason: name);
     }
   });
@@ -53,6 +70,13 @@ void main() {
       }
       expect(find.textContaining('Frame $count of $count'), findsOneWidget);
       expect(find.byTooltip('Play'), findsOneWidget);
+      // The last frame still holds Blueprint stand-ins, whose outline
+      // keeps flowing.
+      tester.platformDispatcher.accessibilityFeaturesTestValue =
+          const FakeAccessibilityFeatures(disableAnimations: true);
+      addTearDown(
+        tester.platformDispatcher.clearAccessibilityFeaturesTestValue,
+      );
       await tester.pumpAndSettle();
     });
   }
@@ -82,7 +106,7 @@ void main() {
       await tester.tap(find.byTooltip('Look'));
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
-      expect(find.text('Subtotal', findRichText: true), findsOneWidget);
+      expect(find.text('This week'), findsOneWidget);
     }
   });
 
@@ -90,11 +114,8 @@ void main() {
     await tester.pumpWidget(const GalleryApp());
     // The menu builds the items near the chosen one: step through them.
     for (final name in gallerySamples.keys.skip(1)) {
-      await tester.tap(find.byType(DropdownButton<String>));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text(name).last);
-      await tester.pumpAndSettle();
-      if (name == 'details') break;
+      await _chooseSample(tester, name);
+      if (name == 'Callout') break;
     }
     await tester.ensureVisible(find.text('Learn more'));
     await tester.pumpAndSettle();

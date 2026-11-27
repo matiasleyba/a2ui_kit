@@ -121,9 +121,10 @@ class _GalleryAppState extends State<GalleryApp> {
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 720),
                         child: switch (gallerySamples[_sample]) {
-                          final components? => SampleSurface(
+                          final sample? => SampleSurface(
                             key: ValueKey(_sample),
-                            components: components,
+                            components: sample.components,
+                            data: sample.data,
                             onAction: _showAction,
                           ),
                           null => ReplayPage(
@@ -151,9 +152,17 @@ class _GalleryAppState extends State<GalleryApp> {
 /// later agent write keeps what the user typed; [onAction] gets each
 /// action with the agent's ids.
 class SampleSurface extends StatefulWidget {
-  const SampleSurface({required this.components, this.onAction, super.key});
+  const SampleSurface({
+    required this.components,
+    this.data,
+    this.onAction,
+    super.key,
+  });
 
   final List<Map<String, Object?>> components;
+
+  /// The surface data model, when the sample binds props with `{"@path"}`.
+  final Map<String, Object?>? data;
 
   final void Function(A2uiRendererAction action)? onAction;
 
@@ -163,7 +172,9 @@ class SampleSurface extends StatefulWidget {
 
 class _SampleSurfaceState extends State<SampleSurface> {
   final _processor = MessageProcessor<ComponentImplementation>(
-    catalogs: [a2uiKitCatalog()],
+    catalogs: [
+      a2uiKitCatalog(options: const A2uiKitOptions(includeBlueprint: true)),
+    ],
   );
   final _ids = A2uiIdNormalizer();
   late final _owned = A2uiUserOwnedData(_processor);
@@ -189,6 +200,11 @@ class _SampleSurfaceState extends State<SampleSurface> {
           'catalogId': kA2uiPlaygroundCatalogId,
         },
       },
+      if (widget.data != null)
+        {
+          'version': '1.0',
+          'updateDataModel': {'surfaceId': 'sample', 'value': widget.data},
+        },
       {
         'version': '1.0',
         'updateComponents': {

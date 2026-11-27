@@ -1,6 +1,6 @@
 // Widget tests of the playground's Section, Heading, Stat, StatGroup,
-// KeyValueList, Alert and Callout, after its renderers (layout, content,
-// data and feedback .tsx).
+// KeyValueList, Agenda, Timeline, ComparisonTable, Alert and Callout,
+// after its renderers (layout, content, data and feedback .tsx).
 
 import 'package:a2ui_kit/a2ui_kit.dart';
 import 'package:a2ui_kit/src/components/playground/data_display/kpi.dart';
@@ -547,6 +547,424 @@ void main() {
         }),
       ]);
       expect(tester.takeException(), isNull);
+    });
+  });
+
+  group('Agenda', () {
+    final accent = _light.playground.toneColor(A2uiTone.accent);
+    final info = _light.playground.toneColor(A2uiTone.info);
+
+    testWidgets('draws days, times, and an empty day', (tester) async {
+      await pumpComponents(tester, theme: _light, [
+        _root({
+          'component': 'Agenda',
+          'title': 'Launch week',
+          'days': [
+            {
+              'date': '2026-11-24',
+              'events': [
+                {
+                  'time': '09:30',
+                  'title': 'Kickoff',
+                  'speaker': 'Ada Lovelace',
+                  'location': 'Hall A',
+                  'description': 'Goals for the week and the demo path.',
+                  'tone': 'accent',
+                },
+                {'title': 'Office hours', 'location': 'Room 2', 'tone': 'info'},
+              ],
+            },
+            {'date': '2026-11-25', 'label': 'Ship', 'events': <Object?>[]},
+            {'date': 'not-a-date', 'events': <Object?>[]},
+          ],
+        }),
+      ]);
+      expect(
+        tester.getSemantics(find.text('Launch week')).flagsCollection.isHeader,
+        isTrue,
+      );
+      expect(find.text('Tue'), findsOneWidget);
+      expect(find.text('24'), findsOneWidget);
+      expect(find.text('Nov'), findsWidgets);
+      expect(find.text('Kickoff'), findsOneWidget);
+      expect(find.text('Ada Lovelace'), findsOneWidget);
+      expect(find.text('Hall A'), findsOneWidget);
+      expect(find.text('09:30'), findsOneWidget);
+      expect(find.text('All day'), findsOneWidget);
+      expect(find.text('Ship'), findsOneWidget);
+      expect(find.text('Wed'), findsNothing);
+      expect(find.text('Nothing scheduled'), findsNWidgets(2));
+      expect(find.text('not-a-date'), findsOneWidget);
+      final bars = tester
+          .widgetList<Container>(
+            find.byWidgetPredicate((widget) {
+              final decoration = widget is Container ? widget.decoration : null;
+              return decoration is BoxDecoration &&
+                  decoration.borderRadius == BorderRadius.circular(999);
+            }),
+          )
+          .map((bar) => (bar.decoration! as BoxDecoration).color)
+          .toList();
+      expect(bars, [accent, info]);
+      expect(
+        tester.widget<LucideGlyph>(find.byType(LucideGlyph).first).icon.name,
+        'MapPin',
+      );
+    });
+
+    testWidgets('an omitted tone walks the chart palette', (tester) async {
+      final chart = _light.playground.chart;
+      await pumpComponents(tester, theme: _light, [
+        _root({
+          'component': 'Agenda',
+          'days': [
+            {
+              'date': '2026-11-24',
+              'events': [
+                {'title': 'Kickoff'},
+                {'title': 'Review'},
+              ],
+            },
+            {
+              'date': '2026-11-25',
+              'events': [
+                {'title': 'Ship'},
+              ],
+            },
+          ],
+        }),
+      ]);
+      final bars = tester
+          .widgetList<Container>(
+            find.byWidgetPredicate((widget) {
+              final decoration = widget is Container ? widget.decoration : null;
+              return decoration is BoxDecoration &&
+                  decoration.borderRadius == BorderRadius.circular(999);
+            }),
+          )
+          .map((bar) => (bar.decoration! as BoxDecoration).color)
+          .toList();
+      expect(bars, [chart[0], chart[1], chart[2]]);
+    });
+
+    testWidgets('resolves a bound title', (tester) async {
+      await pumpComponents(
+        tester,
+        [
+          _root({
+            'component': 'Agenda',
+            'title': {'@path': '/title'},
+            'days': [
+              {
+                'date': '2026-11-24',
+                'events': [
+                  {'title': 'Kickoff'},
+                ],
+              },
+            ],
+          }),
+        ],
+        data: {'title': 'Bound week'},
+      );
+      expect(find.text('Bound week'), findsOneWidget);
+      expect(find.text('Kickoff'), findsOneWidget);
+    });
+  });
+
+  group('Timeline', () {
+    final tokens = _light.playground;
+    final positive = tokens.toneColor(A2uiTone.positive);
+    final accent = tokens.toneColor(A2uiTone.accent);
+
+    testWidgets('draws status, time, and a custom icon', (tester) async {
+      await pumpComponents(tester, theme: _light, [
+        _root({
+          'component': 'Timeline',
+          'items': [
+            {
+              'title': 'Brief signed',
+              'time': 'Mon',
+              'description': 'The scope is locked.',
+              'status': 'done',
+            },
+            {
+              'title': 'Build the demo',
+              'time': '',
+              'description': 'In review.',
+              'status': 'current',
+              'icon': 'flag',
+            },
+            {'title': 'Ship', 'status': 'upcoming'},
+          ],
+        }),
+      ]);
+      expect(find.text('Brief signed'), findsOneWidget);
+      expect(find.text('Mon'), findsOneWidget);
+      expect(find.text('The scope is locked.'), findsOneWidget);
+      expect(find.text('Build the demo'), findsOneWidget);
+      expect(find.text(''), findsNothing);
+      expect(find.text('Ship'), findsOneWidget);
+      expect(
+        tester.widget<Text>(find.text('Ship')).style!.color,
+        tokens.foreground.withValues(alpha: tokens.foreground.a * .65),
+      );
+      expect(
+        tester.widget<Text>(find.text('Brief signed')).style!.color,
+        tokens.foreground,
+      );
+      final glyphs = tester
+          .widgetList<LucideGlyph>(find.byType(LucideGlyph))
+          .map((glyph) => glyph.icon.name)
+          .toList();
+      expect(glyphs, ['Check', 'Flag']);
+      final nodes = tester
+          .widgetList<Container>(
+            find.byWidgetPredicate((widget) {
+              final decoration = widget is Container ? widget.decoration : null;
+              return decoration is BoxDecoration &&
+                  decoration.shape == BoxShape.circle &&
+                  decoration.border != null;
+            }),
+          )
+          .map((node) => (node.decoration! as BoxDecoration).border)
+          .toList();
+      expect((nodes[0]! as Border).top.color, const Color(0x00000000));
+      expect((nodes[1]! as Border).top.color, accent);
+      expect((nodes[2]! as Border).top.color, tokens.lineStrong);
+      final connectors = tester
+          .widgetList<ColoredBox>(
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is ColoredBox &&
+                  widget.child is SizedBox &&
+                  (widget.child! as SizedBox).width == 1,
+            ),
+          )
+          .map((box) => box.color)
+          .toList();
+      expect(connectors, [positive.withValues(alpha: .45), tokens.lineStrong]);
+    });
+
+    testWidgets('treats a missing status as done', (tester) async {
+      await pumpComponents(tester, theme: _light, [
+        _root({
+          'component': 'Timeline',
+          'items': [
+            {'title': 'Started'},
+          ],
+        }),
+      ]);
+      expect(
+        tester.widget<LucideGlyph>(find.byType(LucideGlyph)).icon.name,
+        'Check',
+      );
+    });
+
+    testWidgets('resolves bound items', (tester) async {
+      await pumpComponents(
+        tester,
+        [
+          _root({
+            'component': 'Timeline',
+            'items': {'@path': '/items'},
+          }),
+        ],
+        data: {
+          'items': [
+            {'title': 'Bound step', 'time': 'Tue'},
+          ],
+        },
+      );
+      expect(find.text('Bound step'), findsOneWidget);
+      expect(find.text('Tue'), findsOneWidget);
+    });
+  });
+
+  group('ComparisonTable', () {
+    final tokens = _light.playground;
+    final accent = tokens.toneColor(A2uiTone.accent);
+    final tint = accent.withValues(alpha: .07);
+
+    testWidgets('compares options and marks the highlight', (tester) async {
+      await pumpComponents(tester, theme: _light, [
+        _root({
+          'component': 'ComparisonTable',
+          'title': 'Plans',
+          'highlight': 1,
+          'options': ['Starter', 'Team', 'Scale'],
+          'rows': [
+            {
+              'feature': 'Seats',
+              'values': ['3', 'Unlimited', ''],
+            },
+            {
+              'feature': 'SSO',
+              'values': [false, true, true],
+            },
+            {
+              'feature': 'Price',
+              'values': [12, 1200],
+            },
+          ],
+        }),
+      ]);
+      expect(
+        tester.getSemantics(find.text('Plans')).flagsCollection.isHeader,
+        isTrue,
+      );
+      expect(find.text('Feature'), findsOneWidget);
+      expect(find.text('Starter'), findsOneWidget);
+      expect(find.text('Team'), findsOneWidget);
+      expect(find.text('Recommended'), findsOneWidget);
+      expect(find.text('Seats'), findsOneWidget);
+      expect(find.text('3'), findsOneWidget);
+      expect(find.text('Unlimited'), findsOneWidget);
+      expect(find.text('-'), findsNWidgets(2));
+      expect(find.text('1,200'), findsOneWidget);
+      expect(find.bySemanticsLabel('Yes'), findsNWidgets(2));
+      expect(find.bySemanticsLabel('No'), findsOneWidget);
+      final tinted = tester
+          .widgetList<Container>(
+            find.byWidgetPredicate((widget) {
+              if (widget is! Container) return false;
+              final decoration = widget.decoration;
+              if (decoration is BoxDecoration && decoration.color == tint) {
+                return true;
+              }
+              return widget.color == tint;
+            }),
+          )
+          .length;
+      // The highlighted option's header plus one cell per row.
+      expect(tinted, 4);
+      final badge = tester.widget<Container>(
+        find
+            .ancestor(
+              of: find.text('Recommended'),
+              matching: find.byType(Container),
+            )
+            .first,
+      );
+      final badgeDecoration = badge.decoration! as BoxDecoration;
+      expect(badgeDecoration.color, accent.withValues(alpha: .14));
+      expect(badgeDecoration.borderRadius, BorderRadius.circular(999));
+    });
+
+    testWidgets('grows the recommended chip with the text scale', (
+      tester,
+    ) async {
+      Future<Size> labelAt(double textScale) async {
+        await pumpComponents(
+          tester,
+          theme: _light,
+          textScale: textScale,
+          width: 720,
+          [
+            _root({
+              'component': 'ComparisonTable',
+              'highlight': 0,
+              'options': ['Pro'],
+              'rows': [
+                {
+                  'feature': 'SSO',
+                  'values': [true],
+                },
+              ],
+            }),
+          ],
+        );
+        expect(tester.takeException(), isNull);
+        return tester.getSize(find.text('Recommended'));
+      }
+
+      final normal = await labelAt(1);
+      final huge = await labelAt(2);
+      expect(huge.width, greaterThan(normal.width * 1.8));
+      expect(huge.height, greaterThan(normal.height * 1.8));
+      final chip = tester.getSize(
+        find
+            .ancestor(
+              of: find.text('Recommended'),
+              matching: find.byType(Container),
+            )
+            .first,
+      );
+      expect(chip.width, greaterThanOrEqualTo(huge.width));
+      expect(chip.height, greaterThanOrEqualTo(huge.height));
+    });
+
+    testWidgets('fills the highlight when the mark is shorter than the row', (
+      tester,
+    ) async {
+      await pumpComponents(tester, theme: _light, [
+        _root({
+          'component': 'ComparisonTable',
+          'highlight': 1,
+          'options': ['Starter', 'Pro', 'Enterprise'],
+          'rows': [
+            {
+              'feature': 'Dedicated support',
+              'values': [false, false, true],
+            },
+          ],
+        }),
+      ]);
+      final cells = tester
+          .renderObjectList<RenderBox>(
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is Container &&
+                  widget.padding ==
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            ),
+          )
+          .toList();
+      expect(cells, hasLength(3));
+      expect(cells.map((cell) => cell.size.height).toSet(), hasLength(1));
+      final highlighted = cells[1];
+      expect(highlighted.size.height, greaterThan(14 + 20));
+    });
+
+    testWidgets('ignores a highlight that is not a whole number', (
+      tester,
+    ) async {
+      await pumpComponents(tester, theme: _light, [
+        _root({
+          'component': 'ComparisonTable',
+          'options': ['A', 'B'],
+          'highlight': 1.5,
+          'rows': [
+            {
+              'feature': 'Ready',
+              'values': [true, false],
+            },
+          ],
+        }),
+      ]);
+      expect(find.text('Recommended'), findsNothing);
+      expect(find.text('A'), findsOneWidget);
+    });
+
+    testWidgets('resolves a bound title', (tester) async {
+      await pumpComponents(
+        tester,
+        [
+          _root({
+            'component': 'ComparisonTable',
+            'title': {'@path': '/title'},
+            'options': ['A'],
+            'rows': [
+              {
+                'feature': 'Ready',
+                'values': [true],
+              },
+            ],
+          }),
+        ],
+        data: {'title': 'Bound plans'},
+      );
+      expect(find.text('Bound plans'), findsOneWidget);
+      expect(find.text('Ready'), findsOneWidget);
     });
   });
 }

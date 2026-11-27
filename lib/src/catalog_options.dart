@@ -17,6 +17,7 @@ class A2uiKitOptions {
     this.overrides = const {},
     this.onOpenUrl,
     this.locale = 'en-US',
+    this.includeBlueprint = false,
   });
 
   /// The look a surface takes when the app's `ThemeData` has no
@@ -34,6 +35,16 @@ class A2uiKitOptions {
   /// The BCP 47 locale of the formatting functions (`formatNumber`,
   /// `formatCurrency`, `formatDate`, `pluralize`).
   final String locale;
+
+  /// Whether the catalog also accepts `Blueprint`, the stand-in the
+  /// playground's agent emits for a component whose id has arrived and
+  /// whose props are still streaming (`{component, of, h, state}`).
+  ///
+  /// It is not in CopilotKit's exported catalog, so it stays off: a
+  /// catalog then remains that export, and a name the export does not
+  /// declare is still refused. Turn it on for an agent that writes the
+  /// playground's frames.
+  final bool includeBlueprint;
 }
 
 // PORT STATUS: confidence=high todos=0 upstream=none

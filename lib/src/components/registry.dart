@@ -6,8 +6,11 @@ import 'package:a2ui_kit/src/components/playground/charts/pie_chart.dart';
 import 'package:a2ui_kit/src/components/playground/charts/scatter_chart.dart';
 import 'package:a2ui_kit/src/components/playground/charts/sparkline.dart';
 import 'package:a2ui_kit/src/components/playground/content/heading.dart';
+import 'package:a2ui_kit/src/components/playground/data_display/agenda.dart';
+import 'package:a2ui_kit/src/components/playground/data_display/comparison_table.dart';
 import 'package:a2ui_kit/src/components/playground/data_display/key_value_list.dart';
 import 'package:a2ui_kit/src/components/playground/data_display/stat.dart';
+import 'package:a2ui_kit/src/components/playground/data_display/timeline.dart';
 import 'package:a2ui_kit/src/components/playground/feedback/alert_callout.dart';
 import 'package:a2ui_kit/src/components/playground/layout/section.dart';
 import 'package:a2ui_kit/src/components/standard/data/chart.dart';
@@ -90,6 +93,9 @@ const Map<String, ComponentWidgetBuilder> kitBuilders = {
   'Stat': buildStat,
   'StatGroup': buildStatGroup,
   'KeyValueList': buildKeyValueList,
+  'Agenda': buildAgenda,
+  'Timeline': buildTimeline,
+  'ComparisonTable': buildComparisonTable,
   'Alert': buildAlert,
   'Callout': buildCallout,
   // Playground: charts.

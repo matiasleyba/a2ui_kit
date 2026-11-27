@@ -4,6 +4,7 @@ import 'package:a2ui_core/a2ui_core.dart';
 import 'package:a2ui_flutter/a2ui_flutter.dart';
 import 'package:a2ui_kit/src/catalog_options.dart';
 import 'package:a2ui_kit/src/components/node_guard.dart';
+import 'package:a2ui_kit/src/components/playground/blueprint.dart';
 import 'package:a2ui_kit/src/components/registry.dart';
 import 'package:a2ui_kit/src/document/catalog_document.g.dart';
 import 'package:a2ui_kit/src/document/inference_document.g.dart';
@@ -61,7 +62,7 @@ CatalogApi get playgroundCatalogApi => _playgroundApi;
 /// );
 /// ```
 ///
-/// In this version the 53 components of [a2uiKitPortedComponents] render;
+/// In this version the 56 components of [a2uiKitPortedComponents] render;
 /// the others validate and draw nothing until they are ported. All 16
 /// functions run.
 ///
@@ -71,7 +72,7 @@ CatalogImplementation a2uiKitCatalog({
   A2uiKitOptions options = const A2uiKitOptions(),
 }) {
   final api = _playgroundApi;
-  return CatalogImplementation(
+  final catalog = CatalogImplementation(
     id: api.id,
     schemaId: api.schemaId,
     title: api.title,
@@ -84,6 +85,16 @@ CatalogImplementation a2uiKitCatalog({
         _implement(component, options),
     ],
     functions: kitFunctions(api, options),
+  );
+  if (!options.includeBlueprint) return catalog;
+  return catalog.copyWith(
+    components: [
+      ...catalog.components.values,
+      _implement(
+        ComponentApi(name: 'Blueprint', schema: blueprintSchema),
+        options,
+      ),
+    ],
   );
 }
 
@@ -109,7 +120,9 @@ CatalogImplementation a2uiKitStandardCatalog({
 
 ComponentImplementation _implement(ComponentApi api, A2uiKitOptions options) {
   final builder =
-      options.overrides[api.name] ?? kitBuilders[api.name] ?? buildNotYetPorted;
+      options.overrides[api.name] ??
+      kitBuilders[api.name] ??
+      (api.name == 'Blueprint' ? buildBlueprint : buildNotYetPorted);
   return ComponentImplementation(
     name: api.name,
     schema: api.schema,
