@@ -53,6 +53,13 @@ component's props are still streaming (`of`, `h`, `state`, `hideName`).
 `A2uiKitOptions(includeBlueprint: true)` draws those frames; the default
 catalog leaves the name out, as CopilotKit's exported catalog does.
 
+### Macros
+
+`FlightCard` and `WeatherReport` are model-facing only: the render catalog
+does not list them. `a2uiKitMacros` expands each call into the standard
+components above (a WeatherReport needs a forecast, or `fetchWeather`).
+`ProductCard` still expands only on the server.
+
 ## Setup
 
 ```yaml
@@ -200,7 +207,11 @@ band, stack and arc shapes, nor recharts' axes, so the look would differ.
 - `a2uiKitCatalogPrompt()` turns it into a prompt: the playground's design
   rules, then one line per component and function.
 
-The client never expands macros: as in the playground, the server does.
+`a2uiKitMacros` expands FlightCard and WeatherReport into the standard
+components they become (WeatherReport needs a forecast, or
+`fetchWeather`). ProductCard still expands only on the server. The render
+catalog does not list the macros: a stray one on the wire fails like any
+unknown component.
 
 ## Look and theme
 

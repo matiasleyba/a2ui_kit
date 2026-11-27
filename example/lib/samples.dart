@@ -5,6 +5,8 @@
 
 import 'dart:collection';
 
+import 'package:a2ui_kit/a2ui_kit.dart';
+
 /// One gallery entry: the surface and, when props bind into it, the data.
 class GallerySample {
   /// A surface of [components], optionally seeded with [data].
@@ -914,6 +916,9 @@ final Map<String, GallerySample> gallerySamples = SplayTreeMap.of({
       ],
     },
   ]),
+  // Official macro samples, already expanded into standard components.
+  'FlightCard': GallerySample(expandMacroSample('FlightCard')),
+  'WeatherReport': GallerySample(expandMacroSample('WeatherReport')),
   'EntityCard': GallerySample([
     {
       'id': 'root',

@@ -500,18 +500,19 @@ client, following the A2UI Python SDK's `MacroExpander`:
 | ProductCard | name, price, compareAt?, image?, rating?, reviews?, badge?, specs?[], actionLabel?; event `onAction` | Card, Row, Image, Title, Text, Caption, Icon, Badge, List, Button | none |
 | WeatherReport | location, unit? (C or F) | Card, Row, Column, Title, Caption, Text, Icon, Chart, List | **fetches** a forecast on the server (Open-Meteo) |
 
-**Recommendation: the client package does not expand macros.** In the playground the client never sees them, and
-`catalog.json` (the render contract) does not list them. A Flutter app talking to any CopilotKit-style agent gets
-plain components. What the package does instead:
+**This package expands FlightCard and WeatherReport** via `a2uiKitMacros`
+(`lib/src/macros/`). `catalog.json` (the render contract) still does not
+list them: a Flutter app talking to a CopilotKit-style agent that already
+expanded gets plain components, and a stray macro on the wire fails like
+any unknown component. ProductCard still expands only on the server.
 
 1. It ships `inference-catalog.json` as a document, for apps whose Dart code prompts a model.
-2. It renders every component the expansions use. Phase 1 covers all of them except `Chart` (phase 2), so
-   FlightCard and ProductCard expansions render fully after phase 1.
+2. It renders every component the FlightCard and WeatherReport expansions
+   use (including Chart).
 3. It tests that a stray macro on the wire fails the way an unknown component does: `a2ui_core` reports it, and
    nothing crashes.
-
-A pure-Dart `MacroExpander` (FlightCard and ProductCard need no data) could become a separate library later, if a
-Dart agent wants it. It is out of scope for v1.
+4. `fetchWeather` loads Open-Meteo for a live WeatherReport; gallery
+   samples expand a fixed Lisbon forecast with no network.
 
 ---
 
