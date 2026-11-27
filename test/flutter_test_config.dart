@@ -5,9 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Golden tests run as alchemist's CI goldens only: text is drawn as blocks
-/// and shadows are off, so the images are the same on every machine, except
-/// for the anti-aliased edges of shapes, which each platform's rasterizer
-/// draws a few pixels differently. [_TolerantComparator] accepts that much.
+/// and shadows are off. The images are made on macOS (Apple Silicon), where
+/// CI runs them too: other platforms differ a little (anti-aliased edges, and
+/// text that falls back to a system font, which can change a sample's size).
+/// [_TolerantComparator] accepts a few pixels of edge.
 Future<void> testExecutable(FutureOr<void> Function() testMain) {
   final comparator = goldenFileComparator;
   if (comparator is LocalFileComparator) {

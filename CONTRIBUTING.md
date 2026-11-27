@@ -14,7 +14,7 @@ from draft to merged.
 
 ## Set up
 
-1. Install Flutter 3.47.4 or a newer stable release (CI uses 3.47.4, the version the golden images were made with).
+1. Install Flutter 3.47.4 or a newer stable release (CI uses 3.47.4 on macOS, as the golden images were made).
 2. Fork the repository on GitHub, clone your fork, and add this repository as `upstream`:
    ```bash
    git clone https://github.com/<you>/a2ui_kit.git
@@ -51,8 +51,10 @@ flutter test && (cd example && flutter test)
 ```
 
 **Golden images** (`test/goldens/`):
-- They are alchemist's CI goldens: text is drawn as blocks, so they match on every machine. Up to 0.1% of the
-  pixels may differ, for anti-aliasing; a bigger difference or a new size fails.
+- They are alchemist's CI goldens (text drawn as blocks), made on **macOS (Apple Silicon)**, where CI runs them.
+  Up to 0.1% of the pixels may differ, for anti-aliasing; a bigger difference or a new size fails.
+- On Linux or Windows a few of them fail even with no change (`details.png` comes out a different height, because
+  some text falls back to that system's font). Trust CI's run for those, or check on a Mac.
 - When a test fails, its expected, actual and difference images are in `test/goldens/failures/`.
 - Update the images only when the change of look is intended:
   `flutter test --update-goldens --plain-name "<test name>" test/goldens`. Say so in the pull request, with a
