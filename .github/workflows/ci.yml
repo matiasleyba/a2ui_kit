@@ -1,0 +1,71 @@
+# Checks every pull request and every push to main: formatting, the
+# analyzer, the port's manifest and the tests (the package's and the example
+# app's). A pull request is ready to merge once this run is green.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch: # a "Run workflow" button in the Actions tab
+
+# The checks only read the repository; they can't push or comment.
+permissions:
+  contents: read
+
+# A new push to a pull request cancels that pull request's older run.
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Format, analyze, test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.4 # the version the goldens were made with
+          channel: stable
+          cache: true
+
+      - name: Get packages
+        run: |
+          flutter pub get
+          cd example && flutter pub get
+
+      - name: Fetch the lucide-react packages the generator tests read
+        run: tool/fetch_third_party.sh
+
+      - name: Formatting
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyzer
+        run: |
+          flutter analyze
+          cd example && flutter analyze
+
+      - name: Port manifest is up to date
+        run: dart run port/port_status.dart --check
+
+      - name: Package tests
+        run: flutter test
+
+      - name: Example app tests
+        working-directory: example
+        run: flutter test
+
+      # When a golden test fails, its images (expected, actual, difference)
+      # are kept with the run, under "Artifacts" on the run's page.
+      - name: Keep the golden failure images
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-failures
+          path: test/**/failures/
+          if-no-files-found: ignore
