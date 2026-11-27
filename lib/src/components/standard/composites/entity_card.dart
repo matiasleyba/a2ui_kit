@@ -206,8 +206,12 @@ Widget _rating(A2uiKitTheme theme, double rating, double? count) {
   final text = _fixed(clamped);
   final stars = theme.color(A2uiColorToken.rating);
   final empty = theme.color(A2uiColorToken.borderStrong);
-  return Row(
+  // A Wrap, not a Row: at 320px and text scale 2 the count (e.g. 12840)
+  // would overflow a single line. The React card clips with overflow:
+  // hidden; Flutter reports that as an error, so the line wraps instead.
+  return Wrap(
     spacing: theme.space(1),
+    crossAxisAlignment: WrapCrossAlignment.center,
     children: [
       Semantics(
         label: '$text out of 5',
