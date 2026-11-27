@@ -309,12 +309,6 @@ Component definitions, descriptions and samples are from CopilotKit (MIT),
 CopilotKit's exports; see `NOTICE.md`. a2ui_kit is not affiliated with
 CopilotKit. Icons are Lucide's (ISC), from lucide-react's icon nodes.
 
-## Contributing
-
-Pull requests are welcome. [`CONTRIBUTING.md`](CONTRIBUTING.md) says how to set
-up, what to run before a pull request (the same checks CI runs) and how a pull
-request gets merged.
-
 ## License
 
 MIT; see `LICENSE`.

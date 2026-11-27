@@ -14,5 +14,4 @@
 - [ ] `dart run port/port_status.dart --check` (after adding or changing a component)
 - [ ] Golden images updated only for an intended change of look (say which)
 
-<!-- Not finished yet? Open this as a draft, and press "Ready for review" yourself when it is.
-     See CONTRIBUTING.md for the whole flow. -->
+<!-- Not finished yet? Open this as a draft, and press "Ready for review" yourself when it is. -->
