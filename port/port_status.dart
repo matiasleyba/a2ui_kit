@@ -293,6 +293,10 @@ void main(List<String> args) {
             .where((f) => f.path.endsWith('_test.dart'))
             .toList()
       : <File>[];
+  // A folder lists its files in an order that differs by platform; sorted,
+  // the manifest is the same on every machine.
+  libFiles.sort(_byPath);
+  parityFiles.sort(_byPath);
 
   final upstreamFiles = <String, List<String>>{};
   final upstream = File('port/upstream_tests.tsv');
@@ -480,3 +484,5 @@ void main(List<String> args) {
 }
 
 String _rel(String path) => path.replaceAll(r'\', '/');
+
+int _byPath(File a, File b) => a.path.compareTo(b.path);
